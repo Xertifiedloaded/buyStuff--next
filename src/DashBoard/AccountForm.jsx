@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 const AccountForm = () => {
-    const API = 'http://localhost:2024/api/users'
+    const API = 'http://localhost:3000/api/auth'
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const { user, setUser } = useAuth()
@@ -33,7 +33,7 @@ const AccountForm = () => {
   const onSubmit = useCallback(
     async (data) => {
       if (user) {
-        const response = await fetch(`${API}/api/users/${user.id}`, {
+        const response = await fetch(`${API}/create`, {
           credentials: 'include',
           method: 'PATCH',
           body: JSON.stringify(data),

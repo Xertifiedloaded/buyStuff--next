@@ -10,7 +10,8 @@ import { Location } from "@/utils/utils";
 const PaystackButton = dynamic(() => import("react-paystack").then(module => module.PaystackButton), { ssr: false });
 
 const Paystack = ({ handleBack, cart }) => {
-    const publicKey = "pk_live_cfd6fa1002edc4e0ef555dd555ab7933c6a1aa10";
+    // const publicKey = "pk_live_cfd6fa1002edc4e0ef555dd555ab7933c6a1aa10";
+    const publicKey = "pk_test_8b18eabe74aaa47775d4f5bff93133d7d2fb078f";
     const dispatch = useDispatch();
     const [totalPrice, setTotalPrice] = useState(0);
     const selectedLocation = useSelector((state) => state.cart.selectedLocation);

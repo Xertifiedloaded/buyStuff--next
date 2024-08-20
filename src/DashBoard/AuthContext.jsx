@@ -1,12 +1,11 @@
 'use client'
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-
+import cookies from 'js-cookie'
 const Context = createContext({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState(undefined);
-  const API = 'http://localhost:2024/api/users';
+  const API = 'http://localhost:3000/api/auth';
 
   const create = useCallback(async (payload) => {
     try {
@@ -33,6 +32,9 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+
+
+
   const login = useCallback(async (payload) => {
     try {
       const res = await fetch(`${API}/login`, {
@@ -43,17 +45,13 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify(payload),
       });
-
       if (res.ok) {
         const { user, errors, token } = await res.json();
-        console.log(token);
-        
         if (errors) throw new Error(errors[0].message);
-        Cookies.set('token', token); 
+        cookies.set('token', token, { expires: 7 });
+        console.log(token);
         setUser(user);
         setStatus('loggedIn');
-        console.log(user);
-        
         return user;
       } else {
         throw new Error('Invalid login');
@@ -63,6 +61,44 @@ export const AuthProvider = ({ children }) => {
       throw new Error('An error occurred while attempting to login.');
     }
   }, []);
+
+
+
+  useEffect(() => {
+    const fetchMe = async () => {
+      try {
+        const token = cookies.get('token');
+        console.log(`this is th user token ${token}`);
+        const res = await fetch(`${API}/me`, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (res.ok) {
+          const { user: meUser } = await res.json();
+          console.log(user);
+          setUser(meUser || null);
+          setStatus(meUser ? 'loggedIn' : undefined);
+        } else {
+          setUser(null);
+          setStatus(undefined);
+        }
+      } catch (e) {
+        setUser(null);
+        setStatus(undefined);
+        console.error(e);
+      }
+    };
+
+    fetchMe();
+  }, []);
+
+
+
 
   // Logout user
   const logout = useCallback(async () => {
@@ -89,39 +125,12 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // Fetch currently logged in user
-  useEffect(() => {
-    const fetchMe = async () => {
-      try {
-        const token = Cookies.get('token');
 
-        console.log(token);
-        
-        const res = await fetch(`${API}/me`, {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `JWT ${token}`, 
-          },
-        });
 
-        if (res.ok) {
-          const { user: meUser } = await res.json();
-          setUser(meUser || null);
-          setStatus(meUser ? 'loggedIn' : undefined);
-        } else {
-          setUser(null);
-          setStatus(undefined);
-        }
-      } catch (e) {
-        setUser(null);
-        setStatus(undefined);
-        console.error(e);
-      }
-    };
 
-    fetchMe();
-  }, []);
+
+
+
 
   // Forgot password
   const forgotPassword = useCallback(async (args) => {

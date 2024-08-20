@@ -1,4 +1,3 @@
-
 import databaseConnection from "@/lib/mongodb";
 import User from "@/model/User";
 import bcrypt from "bcryptjs";
@@ -18,20 +17,20 @@ export default async function handler(req, res, next) {
       if (!isMatch) {
         return res.status(400).json({ message: "Invalid email or password" });
       }
-      
+
       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
         expiresIn: "1h",
       });
-      
+
       const cookie = serialize("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production", 
+        secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
-        maxAge: 3600, 
-        path: "/", 
+        maxAge: 3600,
+        path: "/",
       });
       res.setHeader("Set-Cookie", cookie);
-      res.status(200).json({ user });
+      res.status(200).json({ user, token });
     } catch (error) {
       next(error);
       res.status(500).json({ message: "Server error" });

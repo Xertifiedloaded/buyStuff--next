@@ -4,8 +4,12 @@ import { v4 as uuidv4 } from 'uuid';
 const ProductSchema = new mongoose.Schema({
   productId: {
     type: String,
-    default: uuidv4, 
+    default: () => uuidv4(), 
     unique: true
+  },
+  productName: {
+    type: String,
+    required: true
   },
   productImage: {
     type: String,
@@ -13,7 +17,6 @@ const ProductSchema = new mongoose.Schema({
   },
   productDetails: {
     type: String,
-    required: true
   },
   productPrice: {
     type: Number,
@@ -21,6 +24,7 @@ const ProductSchema = new mongoose.Schema({
   },
   category: {
     type: String,
+    enum: ['Food', 'Shawarma', 'Chicken', 'Chicken and Fries', 'Drinks'], 
     required: true
   }
 });

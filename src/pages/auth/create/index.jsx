@@ -1,10 +1,11 @@
+
 import FormComponent from "@/component/FormComponent";
 import { useAuth } from "@/DashBoard/AuthContext";
 import { useState } from "react";
-
+import bg from '../../../assets/image.jpeg'
 
 const CreateUser = () => {
-    const styleName = 'w-full bg-blue-500 text-black border border-black py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300'
+    const styleName = 'w-full bg-blue-500 outline-none  bg-black text-white  border border-black py-3 mt-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300'
     const { create } = useAuth()
     const [payload, setPayload] = useState({
         name: "",
@@ -24,7 +25,6 @@ const CreateUser = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        // console.log(payload);
         try {
             setError(null)
             await create(payload)
@@ -35,7 +35,15 @@ const CreateUser = () => {
     }
 
     return (
-        <FormComponent text='Signup' handleSubmit={handleSubmit} error={error} payload={payload} styleName={styleName} title='SignUp' handleChange={handleChange} />
+        <>
+            <section className="lg:grid   xs:block  h-screen lg:grid-cols-2  ">
+                <div className="bg xs:hidden lg:block"  />
+                <div className="bgImage lg:p-10 xs:p-4 xs:grid xs:items-center lg:block   xs:h-screen lg:h-full">
+                    <FormComponent text='Signup' handleSubmit={handleSubmit} error={error} payload={payload} styleName={styleName} title='SignUp' handleChange={handleChange} />
+                </div>
+
+            </section>
+        </>
     )
 }
 

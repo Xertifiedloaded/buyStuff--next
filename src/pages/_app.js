@@ -2,22 +2,19 @@ import store from "@/ReduxComponent/Redux";
 import { AuthProvider } from "@/DashBoard/AuthContext";
 import { Provider } from "react-redux";
 import "../styles/global.css";
-import Header from "../component/Header";
-import Footer from "@/component/Footer";
+import { ApiProvider } from "@/DashBoard/FetchContext";
 
 export default function App({ Component, pageProps }) {
   return (
     <>
       <div>
-        <AuthProvider>
-          <Provider store={store}>
-            {/* <Header /> */}
-            <div>
+        <ApiProvider>
+          <AuthProvider>
+            <Provider store={store}>
               <Component {...pageProps} />
-            </div>
-            {/* <Footer /> */}
-          </Provider>
-        </AuthProvider>
+            </Provider>
+          </AuthProvider>
+        </ApiProvider>
       </div>
     </>
   );
