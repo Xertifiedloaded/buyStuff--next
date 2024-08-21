@@ -8,13 +8,13 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <div>
-        <ApiProvider>
-          <AuthProvider>
+        <AuthProvider>
+          <ApiProvider>
             <Provider store={store}>
               <Component {...pageProps} />
             </Provider>
-          </AuthProvider>
-        </ApiProvider>
+          </ApiProvider>
+        </AuthProvider>
       </div>
     </>
   );

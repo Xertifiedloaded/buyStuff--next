@@ -3,10 +3,13 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../ReduxComponent/ReduxStore";
 import { PRODUCTS } from "@/utils/Utilities";
+import { useApiContext } from "@/DashBoard/FetchContext";
+import Image from "next/image";
 
 const ProductCategoryList: React.FC = () => {
+  const {product} = useApiContext()
   const dispatch = useDispatch();
-  const categories = [...new Set(PRODUCTS.map((product) => product.category))];
+  const categories = [...new Set(product.map((product) => product.category))];
     const styleName = 'w-full bg-blue-500 text-black border border-black py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300'
   return (
     <>
@@ -17,7 +20,7 @@ const ProductCategoryList: React.FC = () => {
               {category}
             </h1>
             <ul className="product-grid grid xl:grid-cols-2 xs:grid-cols-1 gap-4 ">
-              {PRODUCTS.filter((product) => product.category === category).map(
+              {product.filter((product) => product.category === category).map(
                 (product) => (
                   <li
                     key={product.productId}
@@ -26,13 +29,14 @@ const ProductCategoryList: React.FC = () => {
                     <div
                       className="rounded-lg"
                       style={{
-                        backgroundImage: `url(${product.productImage.src})`,
+                        backgroundImage: `url(${product.productImage})`,
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                         width: "90%",
                         height: "100%",
                       }}
                     />
+               
                     <div className="lg:flex items-start xs:block gap-4 justify-between">
                       <div className="lg:w-[70%] flex-1">
                         <h3 className="product-name text-sm font-semibold">

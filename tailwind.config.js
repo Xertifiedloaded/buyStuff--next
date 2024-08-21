@@ -24,6 +24,12 @@ export default {
         backgroundColorGlass: "rgba(255, 255, 255, 0.1)",
         backgroundColorhsla: "hsla(230, 100%, 67%, 1)",
       },
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+        mulish: ["Mulish", "sans-serif"],
+        notosans: ["Noto Sans", "sans-serif"],
+        underdog: ["Underdog", "cursive"],
+      },
       boxShadow: {
         "custom-shadow": "0 4px 8px rgba(0, 0, 0, 0.1)",
         custom: "0 2px 4px rgba(0, 0, 0, 0.1)",

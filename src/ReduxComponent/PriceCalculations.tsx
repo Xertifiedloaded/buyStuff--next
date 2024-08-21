@@ -1,3 +1,4 @@
+import { useApiContext } from "@/DashBoard/FetchContext";
 import { Location } from "@/utils/utils";
 import React from "react";
 
@@ -6,6 +7,7 @@ export default function LocationChanges(
   payload,
   handleChange
 ) {
+  const { locationData } = useApiContext()
   return (
     <>
       <div>
@@ -18,7 +20,7 @@ export default function LocationChanges(
             onChange={handleLocationChange}
           >
             <option value="">Select a location</option>
-            {Location.map((loc, index) => (
+            {locationData.map((loc, index) => (
               <option key={index} value={loc.exactLocation}>
                 {loc.exactLocation} - ₦{loc.price}
               </option>

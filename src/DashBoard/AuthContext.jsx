@@ -6,7 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState(undefined);
   const API = 'http://localhost:3000/api/auth';
-
+// const API = process.env.PRODUCTION_PORT
   const create = useCallback(async (payload) => {
     try {
       const res = await fetch(`${API}/create`, {
@@ -45,8 +45,11 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify(payload),
       });
+      
       if (res.ok) {
         const { user, errors, token } = await res.json();
+        console.log(user);
+        
         if (errors) throw new Error(errors[0].message);
         cookies.set('token', token, { expires: 7 });
         console.log(token);

@@ -5,11 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLocation } from "../ReduxComponent/ReduxStore";
 import LocationChanges, { DeliveryInformation } from "../ReduxComponent/PriceCalculations";
 import { Location } from "@/utils/utils";
-
+import { useApiContext } from '@/DashBoard/FetchContext';
 // Dynamically import the PaystackButton component with no SSR
 const PaystackButton = dynamic(() => import("react-paystack").then(module => module.PaystackButton), { ssr: false });
 
 const Paystack = ({ handleBack, cart }) => {
+    const { locationData } = useApiContext()
+
+    
     // const publicKey = "pk_live_cfd6fa1002edc4e0ef555dd555ab7933c6a1aa10";
     const publicKey = "pk_test_8b18eabe74aaa47775d4f5bff93133d7d2fb078f";
     const dispatch = useDispatch();
@@ -28,7 +31,7 @@ const Paystack = ({ handleBack, cart }) => {
     }, [locationPrice, cart]);
 
     const handleLocationChange = (e) => {
-        const selectedLocation = Location.find(loc => loc.exactLocation === e.target.value);
+        const selectedLocation = locationData.find(loc => loc.exactLocation === e.target.value);
         if (selectedLocation) {
             dispatch(setLocation(selectedLocation));
         }

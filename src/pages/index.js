@@ -1,10 +1,6 @@
 import Landing from "@/component/Landing";
 import Head from "next/head";
-
 import React from "react";
-
-
-
 export default function Home() {
   return (
     <>
@@ -15,7 +11,7 @@ export default function Home() {
         <link rel="icon" href="/" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
       </Head>
-      <main >
+      <main>
         <Landing />
       </main>
     </>

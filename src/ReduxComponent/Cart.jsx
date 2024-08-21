@@ -22,9 +22,7 @@ const getLocationPrice = (location) => {
 
 const Cart = () => {
     const cart = useSelector(state => state.cart.cart);
-    const selectedLocation = useSelector(state => state.cart.selectedLocation);
     const dispatch = useDispatch();
-
     const isSidebarOpen = useSelector(state => state.sidebar.isOpen);
     const [isCheckout, setIsCheckout] = useState(false);
 
@@ -37,9 +35,8 @@ const Cart = () => {
     };
 
     const calculateTotalPrice = () => {
-        const locationPrice = getLocationPrice(selectedLocation);
         const cartTotal = cart.reduce((total, item) => total + item.productPrice * item.quantity, 0);
-        return (cartTotal + locationPrice).toFixed(2);
+        return (cartTotal).toFixed(2);
     };
 
     const handleCheckout = () => {
