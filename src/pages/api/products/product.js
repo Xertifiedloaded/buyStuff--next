@@ -40,13 +40,10 @@ export default async function handler(req, res) {
           productPrice,
           category
         });
-
         await product.save();
-        console.log(product.productName);
         const products = await Product.find({});
         res.status(201).json(products);
       } catch (error) {
-        console.error("Error saving product:", error);
         res.status(400).json({ message: "Bad Request", error: error.message });
       }
       break;

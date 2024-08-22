@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: "Method not allowed" });
   }
   const token = req.cookies.token;
-  console.log(token);
+  console.log(` this fucking token ${token}`);
   if (!token) {
     return res.status(401).json({ message: "Not authenticated" });
   }

@@ -6,7 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState(undefined);
   const API = 'http://localhost:3000/api/auth';
-// const API = process.env.PRODUCTION_PORT
+  // const API = process.env.PRODUCTION_PORT
   const create = useCallback(async (payload) => {
     try {
       const res = await fetch(`${API}/create`, {
@@ -45,11 +45,11 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify(payload),
       });
-      
+
       if (res.ok) {
         const { user, errors, token } = await res.json();
         console.log(user);
-        
+
         if (errors) throw new Error(errors[0].message);
         cookies.set('token', token, { expires: 7 });
         console.log(token);
@@ -83,7 +83,6 @@ export const AuthProvider = ({ children }) => {
 
         if (res.ok) {
           const { user: meUser } = await res.json();
-          console.log(user);
           setUser(meUser || null);
           setStatus(meUser ? 'loggedIn' : undefined);
         } else {
@@ -152,7 +151,7 @@ export const AuthProvider = ({ children }) => {
       if (res.ok) {
         const { data, errors } = await res.json();
         if (errors) throw new Error(errors[0].message);
-        setUser(data?.loginUser?.user);
+        setUser(data);
       } else {
         throw new Error('Error in forgot password process.');
       }
@@ -180,9 +179,12 @@ export const AuthProvider = ({ children }) => {
 
       if (res.ok) {
         const { data, errors } = await res.json();
+      
+
         if (errors) throw new Error(errors[0].message);
-        setUser(data?.loginUser?.user);
-        setStatus(data?.loginUser?.user ? 'loggedIn' : undefined);
+        setUser(data);
+        console.log(user);
+        setStatus(data ? 'loggedIn' : undefined);
       } else {
         throw new Error('Error in reset password process.');
       }
