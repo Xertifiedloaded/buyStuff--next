@@ -17,11 +17,11 @@ export default function ProductTab() {
             if (isLoading) {
                 setIsError(true);
             }
-        }, 300000); // 5 minutes
+        }, 300000); 
 
         const fetchProducts = async () => {
             try {
-                await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate data fetching
+                await new Promise(resolve => setTimeout(resolve, 1000)); 
                 setIsLoading(false);
             } catch (error) {
                 setIsLoading(false);
