@@ -19,7 +19,7 @@ export async function getServerSideProps(context) {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/auth/me', {
+      const response = await fetch('buy-stuff-six.vercel.app/api/auth/me', {
         headers: {
           Cookie: `token=${token}`, 
           'Content-Type': 'application/json',

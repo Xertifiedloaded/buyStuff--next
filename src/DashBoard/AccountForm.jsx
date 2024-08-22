@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 const AccountForm = () => {
-    const API = 'http://localhost:3000/api/auth'
+    const API = 'buy-stuff-six.vercel.app/api/auth'
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const { user, setUser } = useAuth()

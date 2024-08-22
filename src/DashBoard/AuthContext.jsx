@@ -5,7 +5,7 @@ const Context = createContext({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState(undefined);
-  const API = 'http://localhost:3000/api/auth';
+  const API = 'buy-stuff-six.vercel.app/api/auth';
   // const API = process.env.PRODUCTION_PORT
   const create = useCallback(async (payload) => {
     try {
