@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../ReduxComponent/ReduxStore";
 import { useApiContext } from "@/DashBoard/FetchContext";
 import Shimmer from "./Shimmer";
+import ReuseableSectionGrid from "./ReuseableSectionGrid";
 
 const ProductCategoryList: React.FC = () => {
   const { product } = useApiContext();
@@ -10,36 +11,34 @@ const ProductCategoryList: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate a delay for loading
-    const timer = setTimeout(() => {
+    if (product && product.length > 0) {
       setIsLoading(false);
-    }, 1000); // Adjust the delay as needed
-
-    return () => clearTimeout(timer);
-  }, []);
-
+    }
+  }, [product]);
+  // categories
   const categories = [...new Set(product.map((p) => p.category))];
+
   const styleName =
     "w-full bg-blue-500 text-black border border-black py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300";
 
   return (
     <>
-      <div className="product-category-list lg:w-[85%] mx-auto xs:w-[90%]">
+      <div className="product-category-list lg:w-[85%] wrapper">
         {isLoading ? (
           <Shimmer />
         ) : (
           categories.map((category) => (
             <section key={category} className="category-section">
-              <h1 className="lg:text-5xl xs:text-2xl xs:my-5 font-bold lg:my-10 uppercase">
+              <h1 className="lg:text-5xl text-2xl my-5 font-bold lg:my-10 uppercase">
                 {category}
               </h1>
-              <ul className="product-grid grid xl:grid-cols-2 xs:grid-cols-1 gap-4 ">
+              <ul className="product-grid grid lg:grid-cols-2 grid-cols-1 gap-4">
                 {product
                   .filter((p) => p.category === category)
                   .map((product) => (
                     <li
                       key={product.productId}
-                      className="product-item grid grid-cols-2 border border-white rounded-lg bg-white shadow-lg min-h-[130px] py-3 px-2"
+                      className="product-item md:px-2 grid grid-cols-2 lg:grid-cols-2 border border-white rounded-lg bg-white shadow-lg min-h-[130px] py-3 px-2"
                     >
                       <div
                         className="rounded-lg"
@@ -51,18 +50,19 @@ const ProductCategoryList: React.FC = () => {
                           height: "100%",
                         }}
                       />
-                      <div className="lg:flex items-start xs:block gap-4 justify-between">
+                      <div className="lg:flex items-start block gap-4 justify-between">
                         <div className="lg:w-[70%] flex-1">
                           <h3 className="product-name text-sm font-semibold">
                             {product.productName}
                           </h3>
+                     
                           {product.productDetails && (
                             <p className="product-details lg:py-4 text-xs">
                               {product.productDetails}
                             </p>
                           )}
                         </div>
-                        <div className="xs:flex items-center justify-between lg:block">
+                        <div className="flex items-center justify-between lg:block">
                           <p className="product-price text-sm font-bold">
                             ₦{product.productPrice.toFixed(2)}
                           </p>

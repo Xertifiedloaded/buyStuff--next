@@ -12,12 +12,12 @@ interface ProductProps {
 
 
 export const categories: string[] = [
-  'shawarma',
-  'chicken and fries',
-  'snacks',
-  'pizza',
-  'drinks',
-  'ice cream'
+  'Panties',
+  'Brallets',
+  'Shorts',
+  'Bra',
+  'Night Wears',
+  'Boxers'
 ];
 
 export const PRODUCTS: ProductProps[] = [
@@ -27,7 +27,7 @@ export const PRODUCTS: ProductProps[] = [
     productName: 'Plain Chicken Regular',
     productDetails: 'No Sausage, Single Portion of Chicken',
     productPrice: 2000,
-    category: 'SHAWARMA'
+    category: 'Boxers'
   },
   {
     productId: 2,
@@ -35,7 +35,7 @@ export const PRODUCTS: ProductProps[] = [
     productName: 'Double Chicken Regular',
     productDetails: '2Sausages, Single Portion of Chicken',
     productPrice: 2600,
-    category: 'SHAWARMA'
+    category: 'Brallets'
   },
   {
     productId: 3,
@@ -43,7 +43,7 @@ export const PRODUCTS: ProductProps[] = [
     productName: 'Single Chicken Special',
     productDetails: '1Sausage, Double Portions of Chicken',
     productPrice: 3100,
-    category: 'SHAWARMA'
+    category: 'Night Wears'
   },
   {
     productId: 4,
@@ -51,7 +51,7 @@ export const PRODUCTS: ProductProps[] = [
     productName: 'Single Chicken Regular',
     productDetails: '1 Sausage, single Portions of Chicken',
     productPrice: 2300,
-    category: 'SHAWARMA'
+    category: 'Shorts'
   },
   {
     productId: 5,
@@ -59,7 +59,7 @@ export const PRODUCTS: ProductProps[] = [
     productName: 'Plain Chicken Special',
     productDetails: 'No Sausage, double Portions of Chicken',
     productPrice: 2800,
-    category: 'SHAWARMA'
+    category: 'Shorts'
   },
   {
     productId: 6,
@@ -67,14 +67,14 @@ export const PRODUCTS: ProductProps[] = [
     productName: 'Double Chicken Special',
     productDetails: '2 Sausage, Double Portions of Chicken',
     productPrice: 3400,
-    category: 'SHAWARMA'
+    category: 'Boxers'
   },
   {
     productId: 7,
     productImage: icon,
     productName: 'Extra Ketchup',
     productPrice: 200,
-    category: 'CHICKEN & FRIES'
+    category: 'Boxers'
   },
   {
     productId: 8,
@@ -82,14 +82,14 @@ export const PRODUCTS: ProductProps[] = [
     productName: 'Extra French Fries',
     productPrice: 1500,
     productDetails: '1 Portion of Chips and Ketchup',
-    category: 'CHICKEN & FRIES'
+    category: 'Bra'
   },
   {
     productId: 9,
     productImage: icon,
     productName: '2 Pieces of Chicken Drumsticks',
     productPrice: 2400,
-    category: 'CHICKEN & FRIES'
+    category: 'Bra'
   },
   {
     productId: 10,
@@ -97,7 +97,7 @@ export const PRODUCTS: ProductProps[] = [
     productName: 'Chicken & French Fries',
     productPrice: 3700,
     productDetails: 'Crispy Chicken, French Fries and Ketchup',
-    category: 'CHICKEN & FRIES'
+    category: 'Bra'
   },
   {
     productId: 11,
@@ -105,14 +105,14 @@ export const PRODUCTS: ProductProps[] = [
     productName: 'Box of Chicken Drumsticks',
     productPrice: 6000,
     productDetails: '5 Pieces of Crispy Fried Chicken',
-    category: 'CHICKEN & FRIES'
+    category: 'Panties'
   },
   {
     productId: 12,
     productImage: icon,
     productName: 'Plantain Cubes',
     productPrice: 500,
-    category: 'food'
+    category: 'Panties'
   },
   {
     productId: 13,
@@ -127,21 +127,21 @@ export const PRODUCTS: ProductProps[] = [
     productName: 'Poundo Yam',
     productPrice: 3000,
     productDetails: 'Poundo Yam and Egusi Soup with Beef',
-    category: 'food',
+    category: 'Panties',
   },
   {
     productId: 15,
     productImage: icon,
     productName: '2Portions of Jollof Rice and Chicken',
     productPrice: 3400,
-    category: 'food',
+    category: 'Night Wears',
   },
   {
     productId: 16,
     productImage: icon,
     productName: 'Jollof Rice, Fried Rice and Chicken',
     productPrice: 3600,
-    category: 'food',
+    category: 'Night Wears',
   },
 
 ];

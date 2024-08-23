@@ -6,13 +6,12 @@ import { setLocation } from "../ReduxComponent/ReduxStore";
 import LocationChanges, { DeliveryInformation } from "../ReduxComponent/PriceCalculations";
 import { Location } from "@/utils/utils";
 import { useApiContext } from '@/DashBoard/FetchContext';
+import { sendOrderDetails } from './OrderDetails';
 // Dynamically import the PaystackButton component with no SSR
 const PaystackButton = dynamic(() => import("react-paystack").then(module => module.PaystackButton), { ssr: false });
 
 const Paystack = ({ handleBack, cart }) => {
     const { locationData } = useApiContext()
-
-    
     // const publicKey = "pk_live_cfd6fa1002edc4e0ef555dd555ab7933c6a1aa10";
     const publicKey = "pk_test_8b18eabe74aaa47775d4f5bff93133d7d2fb078f";
     const dispatch = useDispatch();
@@ -49,7 +48,7 @@ const Paystack = ({ handleBack, cart }) => {
             [name]: value,
         }));
     };
-
+    // paystack
     const componentProps = {
         email: payload.email,
         amount: totalPrice * 100,
@@ -65,7 +64,12 @@ const Paystack = ({ handleBack, cart }) => {
         },
         publicKey,
         text: "Pay Now",
-        onSuccess: () => alert("Thanks for doing business with us! Come back soon!!"),
+        onSuccess: async () => {
+            await sendOrderDetails(cart, payload)
+            console.log(payload, cart);
+
+            alert("Thanks for doing business with us! Come back soon!!")
+        },
         onClose: () => alert("Wait! Don't leave "),
     };
 

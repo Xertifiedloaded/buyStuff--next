@@ -10,7 +10,12 @@ export default {
           "linear-gradient(116.85deg, rgba(252, 70, 107, 0.2) 0%, rgba(63, 94, 251, 0.2) 100%)",
         "gradient-button":
           "linear-gradient(116.85deg, #FC466B 0%, #3F5EFB 100%)",
+          'shimmer-gradient': 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
       },
+      backgroundSize: {
+        'customBackgroundSize%': '200% 100%',
+      },
+  
       animation: {
         "spin-slow": "spin 3s linear infinite",
       },
@@ -33,6 +38,16 @@ export default {
       boxShadow: {
         "custom-shadow": "0 4px 8px rgba(0, 0, 0, 0.1)",
         custom: "0 2px 4px rgba(0, 0, 0, 0.1)",
+      },
+
+      animation: {
+        shimmer: 'shimmer 1.8s infinite',
+      },
+      keyframes: {
+        shimmer: {
+          '0%': { backgroundPosition: '200% 0' },
+          '100%': { backgroundPosition: '-200% 0' },
+        },
       },
       colors: {
         blue: "#1fb6ff",

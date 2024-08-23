@@ -5,6 +5,8 @@ import OrdersReceived from './OrdersReceived';
 import AvailableLocation from './AvailableLocation';
 import Admins from './Admins';
 import ProtectedPage from '@/component/ProtectedRoute';
+import { Modal } from '@/component/Modal';
+import { useApiContext } from '@/DashBoard/FetchContext';
 const developmentUrl = 'https://buy-stuff-six.vercel.app'
 const localUrl = 'http://localhost:3000'
 export async function getServerSideProps(context) {
@@ -52,12 +54,18 @@ export default function AdminDashboard({ user }) {
     const handleActionClick = (action) => {
         setCurrentAction(action);
     };
+    const [isOpen, setModal] = useState(false)
+    const { isModalOpen, modalContentType } = useApiContext()
+    const toggleModal = () => {
+        setModal(!isOpen)
+        console.log(isOpen);
 
+    }
     const currentTabName = collections[currentAction];
     const renderComponent = () => {
         switch (currentAction) {
             case 0:
-                return <ProductTab user={user} />;
+                return <ProductTab toggleModal={toggleModal} user={user} />;
             case 1:
                 return <OrdersReceived />;
             case 2:
@@ -92,6 +100,10 @@ export default function AdminDashboard({ user }) {
                 <div className='tab-body mt-4'>
                     {renderComponent()}
                 </div>
+
+                {isModalOpen &&
+                    <Modal />
+                }
             </section>
         </ProtectedPage>
     );

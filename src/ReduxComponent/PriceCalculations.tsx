@@ -16,7 +16,7 @@ export default function LocationChanges(
           <select
             id="location"
             name="selectedLocation"
-            className="p-3 h-[45px] placeholder:text-sm text-[16px] rounded-md border border-gray-300 w-full outline-none"
+            className="p-3 h-[45px] text-xs placeholder:text-black lg:placeholder:text-gray lg:placeholder:text-xs  bg-transparent placeholder:text-sm text-[16px] rounded-md border lg:border-gray border-gray-dark w-full outline-none"
             onChange={handleLocationChange}
           >
             <option value="">Select a location</option>
@@ -35,7 +35,7 @@ export default function LocationChanges(
             value={payload.address}
             onChange={handleChange}
             placeholder="Describe your address"
-            className="p-3 h-[90px] resize-none placeholder:text-sm text-[16px] rounded-md border border-gray-300 w-full outline-none"
+            className="p-3 h-[45px] text-xs placeholder:text-black lg:placeholder:text-gray lg:placeholder:text-xs bg-transparent placeholder:text-sm text-[16px] rounded-md border  border-gray-dark w-full outline-none"
           />
         </label>
       </div>
@@ -55,7 +55,7 @@ export function DeliveryInformation(payload, handleChange) {
             type="text"
             id={field}
             name={field}
-            className="p-3 h-[45px] placeholder:text-sm text-[16px] rounded-md border border-gray-300 w-full outline-none"
+            className="p-3 h-[45px] placeholder:text-sm text-[16px] rounded-md border border-gray-dark bg-transparent w-full outline-none"
             value={payload[field]}
             onChange={handleChange}
             placeholder={`Enter your ${field}`}

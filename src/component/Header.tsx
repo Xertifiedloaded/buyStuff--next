@@ -11,6 +11,7 @@ import { CiClock1 } from "react-icons/ci";
 import { PiBicycleThin } from "react-icons/pi";
 import { closeSidebar, openSidebar } from "@/ReduxComponent/ReduxStore";
 import GridCategory from "./GridCategory";
+import HeroSection from "./Hero";
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -37,18 +38,24 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-cover  bg-black text-white bg-center lg:h-screen xs:min-h-[700px] hero">
-        <nav className=" fixed z-40 lg:px-10 xs:px-4 py-4 top-0 left-0 w-full right-0 bg-black  mx-auto">
-          <div className=" lg:hidden xs:flex items-center gap-4 justify-end">
+      <header className="bg-cover  bg-black text-white bg-center lg:h-screen min-h-[700px] hero">
+        <nav className=" fixed flex items-center justify-between z-40 lg:px-10 px-4 py-5 top-0 left-0 w-full right-0 bg-black  mx-auto">
+          <h1 className="logo font-700 text-2xl lg:text-2xl">Buy<span className="text-red-600">Stuff</span> </h1>
+          <div className=" lg:hidden flex items-center gap-4 justify-end">
             <div className=" relative" onClick={toggleSidebar}>
               <CiShoppingCart className="font-700" fontSize="30px" />
               <small className="absolute  text-white font-700 left-[35%] top-[20%] ">
                 {cart.length === 0 ? null : cart.length}
               </small>
             </div>
-            <img src={Logo} className="xs:invert xs:block lg:hidden" alt="" />
+            <img
+              src={Logo}
+              className="invert block lg:invert-0 lg:hidden"
+              alt=""
+            />
           </div>
-          <ul className="lg:flex xs:hidden justify-end gap-4  items-center">
+
+          <ul className="lg:flex hidden justify-end gap-4  items-center">
             {NAV.map((items, idx) => (
               <li
                 key={idx}
@@ -69,31 +76,11 @@ const Header: React.FC = () => {
             ))}
           </ul>
         </nav>
-        <div className="lg:w-[85%] xs:w-[95%] mx-auto">
-          <div className="flex lg:h-[450px] border xs:min-h-[350px] border-black justify-center items-center">
-            <div className="text-center">
-              <h1 className="text-white xs:text-3xl lg:text-7xl font-bold">
-                Welcome <span className="text-red-600 capitalize">to</span>{" "}
-                BuyStuff
-              </h1>
-              <p className="mt-4 lg:text-2xl xs:text-xl">
-                A taste you can't resist
-              </p>
-            </div>
-          </div>
-          <div className="flex justify-center my-6">
-            <div className="h-[100px] border border-red-600 border-t-0 border-b-0 border-l-0" />
-          </div>
-          <div className="flex justify-center items-center">
-            <h1 className="flex gap-2 justify-center items-center">
-              <FaMouse />
-              START ORDERING
-            </h1>
-          </div>
-        </div>
+
+        <HeroSection />
       </header>
 
-      <section className="w-[85%] mx-auto">
+      <section className="wrapper">
         <div className="flex text-md my-3 items-center gap-6">
           <MdLocationOn />
           <p>Inside Mobil Filling Station, Odo-Eran Obantoko • More</p>

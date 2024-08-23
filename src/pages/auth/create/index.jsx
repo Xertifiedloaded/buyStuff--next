@@ -3,10 +3,12 @@ import FormComponent from "@/component/FormComponent";
 import { useAuth } from "@/DashBoard/AuthContext";
 import { useState } from "react";
 import bg from '../../../assets/image.jpeg'
+import { useRouter } from "next/router";
 
 const CreateUser = () => {
     const styleName = 'w-full bg-blue-500 outline-none  bg-black text-white  border border-black py-3 mt-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300'
     const { create } = useAuth()
+    const router = useRouter()
     const [payload, setPayload] = useState({
         name: "",
         email: "",
@@ -28,7 +30,7 @@ const CreateUser = () => {
         try {
             setError(null)
             await create(payload)
-
+            router.push('/auth/login')
         } catch (err) {
             setError(err.message)
         }

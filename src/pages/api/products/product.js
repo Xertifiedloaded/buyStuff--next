@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const products = await Product.find({});
+        const products = await Product.find({}).sort({ createdAt: -1 });
         res.status(200).json(products);
       } catch (error) {
         res.status(500).json({ message: "Server error", error: error.message });
