@@ -51,6 +51,7 @@ export const AuthProvider = ({ children }) => {
         console.log(user);
 
         if (errors) throw new Error(errors[0].message);
+        // set token
         cookies.set('token', token, { expires: 7 });
         console.log(token);
         setUser(user);

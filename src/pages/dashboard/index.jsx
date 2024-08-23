@@ -5,46 +5,48 @@ import OrdersReceived from './OrdersReceived';
 import AvailableLocation from './AvailableLocation';
 import Admins from './Admins';
 import ProtectedPage from '@/component/ProtectedRoute';
-
+const developmentUrl = 'https://buy-stuff-six.vercel.app'
+const localUrl = 'http://localhost:3000'
 export async function getServerSideProps(context) {
     const { req } = context;
     const token = req.cookies.token;
     if (!token) {
-      return {
-        redirect: {
-          destination: '/auth/login',
-          permanent: false,
-        },
-      };
+        return {
+            redirect: {
+                destination: '/auth/login',
+                permanent: false,
+            },
+        };
     }
     try {
-      const response = await fetch('/api/auth/me', {
-        headers: {
-          Cookie: `token=${token}`, 
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      if (!response.ok) {
-        throw new Error('Failed to fetch user');
-      }
-      const { user } = await response.json();
-      return {
-        props: { user }, 
-      };
+        const response = await fetch(`${developmentUrl}/api/auth/me`, {
+            headers: {
+                Cookie: `token=${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch user');
+        }
+        const { user } = await response.json();
+        console.log(user);
+        return {
+            props: { user },
+        };
     } catch (error) {
-      console.error('Failed to fetch user:', error.message);
-      return {
-        redirect: {
-          destination: '/auth/login',
-          permanent: false,
-        },
-      };
+        console.error('Failed to fetch user:', error.message);
+        return {
+            redirect: {
+                destination: '/auth/login',
+                permanent: false,
+            },
+        };
     }
-  }
+}
 
 
-export default function AdminDashboard({user}) {
+export default function AdminDashboard({ user }) {
     const [currentAction, setCurrentAction] = useState(0);
     const collections = ['Products', 'Orders Received', 'Available Location', 'Edit Admin'];
     const handleActionClick = (action) => {
