@@ -55,7 +55,7 @@ export default function AdminDashboard({ user }) {
         setCurrentAction(action);
     };
     const [isOpen, setModal] = useState(false)
-    const { isModalOpen, modalContentType } = useApiContext()
+    const { isModalOpen } = useApiContext()
     const toggleModal = () => {
         setModal(!isOpen)
         console.log(isOpen);
@@ -84,7 +84,11 @@ export default function AdminDashboard({ user }) {
     return (
         <ProtectedPage>
             <section className='w-[90%] mt-4 mx-auto'>
-                <h1 className='lg:text-5xl xs:text-2xl capitalize'>Welcome  {user.name},</h1>
+            <div className='flex w-full justify-between items-center'>
+            <h1 className='lg:text-5xl xs:text-2xl capitalize'>Welcome {user.name}!</h1>
+            <div className='border border-black w-[40px] lg:h-[50px] lg:w-[50px] h-[40px] rounded-full'>
+            </div>
+            </div>
                 <h4 className='my-4 lg:text-sm xs:text-sm font-600'>{`Dashboard > ${currentTabName}`}</h4>
                 <div className='grid xs:grid-cols-2 lg:grid-cols-4 gap-3'>
                     {collections.map((collection, idx) => (
