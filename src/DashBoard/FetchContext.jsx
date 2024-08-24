@@ -41,10 +41,22 @@ export const ApiProvider = ({ children }) => {
     fetchData();
   }, []);
 
+
+
   const handleAddProduct = async (productData) => {
     try {
       await axios.post('/api/products/product', productData);
       alert('Product uploaded successfully!');
+      closeModal()
+    } catch (error) {
+      console.error('Product upload failed:', error);
+    }
+  };
+  const handleAddLocation = async (productData) => {
+    try {
+      await axios.post('/api/location/location', productData);
+      alert('Location Added successfully!');
+      fetchData();
       closeModal()
     } catch (error) {
       console.error('Product upload failed:', error);
@@ -55,7 +67,7 @@ export const ApiProvider = ({ children }) => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `/api/location/location/${id}`,
+        `/api/location/${id}`,
         {
           method: "DELETE",
         }
@@ -68,17 +80,23 @@ export const ApiProvider = ({ children }) => {
       console.error("Error deleting project:", error);
     }
   };
-
-  const handleAddLocation = async (productData) => {
+  const handleDeleteProduct = async (id) => {
     try {
-      await axios.post('/api/location/location', productData);
-      alert('Location Added successfully!');
-      fetchData();
-      closeModal()
+      const response = await fetch(
+        `/api/products/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+      setProducts(product.filter(product => product._id !== id));
     } catch (error) {
-      console.error('Product upload failed:', error);
+      console.error("Error deleting project:", error);
     }
   };
+
 
   return (
     <Context.Provider
@@ -92,7 +110,8 @@ export const ApiProvider = ({ children }) => {
         closeModal,
         handleAddProduct,
         handleAddLocation,
-        handleDelete
+        handleDelete,
+        handleDeleteProduct
       }}
     >
       {children}

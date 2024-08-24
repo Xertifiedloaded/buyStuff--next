@@ -5,12 +5,12 @@ import { useApiContext } from '@/DashBoard/FetchContext'
 import React, { useState, useEffect } from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 
-export default function ProductTab({toggleModal}) {
+export default function ProductTab({ toggleModal }) {
     const styleName = 'lg:w-[150px] xs:w[100px] lg:text-xs xs:text-xs bg-blue-500 outline-none bg-black text-white text-sm  px-3 lg:px-0 lg:py-3 py-2 mt-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300'
     const { product } = useApiContext()
     const [isLoading, setIsLoading] = useState(true)
     const [isError, setIsError] = useState(false)
-const {openModal,contentType}=useApiContext()
+    const { openModal, handleDeleteProduct } = useApiContext()
     useEffect(() => {
         const timer = setTimeout(() => {
             if (isLoading) {
@@ -52,7 +52,7 @@ const {openModal,contentType}=useApiContext()
         <>
             <section className=" ">
                 <div className="flex justify-end items-center mb-6">
-                    <Button  onclick={() => openModal('product')} text="Add New Product" styles="bg-blue-500 bg-black hover:bg-blue-600 text-black text-white py-2 px-4 rounded" type="button" />
+                    <Button onclick={() => openModal('product')} text="Add New Product" styles="bg-blue-500 bg-black hover:bg-blue-600 text-black text-white py-2 px-4 rounded" type="button" />
                 </div>
 
                 <div className="products">
@@ -82,7 +82,7 @@ const {openModal,contentType}=useApiContext()
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <button className="hover:text-red-600 transition duration-150 ease-in-out">
-                                        <FaTrash color="currentColor" />
+                                        <FaTrash onClick={() => handleDeleteProduct(product._id)} color="currentColor" />
                                     </button>
                                     <button className="hover:text-blue-600 transition duration-150 ease-in-out">
                                         <FaEdit color="currentColor" />
