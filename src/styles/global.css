@@ -23,6 +23,9 @@ body {
   background-size: 100%;
   background-position: top;
 }
+input,textarea{
+  outline: none;
+}
 
 .bg,
 .bgImage {

@@ -7,7 +7,7 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 export default function AvailableLocation() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { locationData,openModal } = useApiContext();
+  const { locationData, openModal, handleDelete } = useApiContext();
   const styleName = 'lg:w-[150px] xs:w[100px] lg:text-xs xs:text-xs bg-blue-500 outline-none bg-black text-white text-sm  xs:px-3 lg:px-0 lg:py-3 xs:py-2 mt-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300';
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function AvailableLocation() {
 
                 <div className="flex items-center gap-3">
                   <button className="hover:text-red-600 transition duration-150 ease-in-out">
-                    <FaTrash />
+                    <FaTrash onClick={() => handleDelete(location._id)} />
                   </button>
                   <button className="hover:text-blue-600 transition duration-150 ease-in-out">
                     <FaEdit />

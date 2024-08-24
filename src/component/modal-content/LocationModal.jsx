@@ -5,7 +5,8 @@ import { Inputs } from '../Input';
 export default function LocationForm({ onClose }) {
     const [exactLocation, setExactLocation] = useState('');
     const [price, setPrice] = useState('');
-    const { handleAddLocation } = useApiContext();
+
+    const { handleAddLocation, handleDelete } = useApiContext();
 
     const handleSubmit = async (e) => {
         e.preventDefault();

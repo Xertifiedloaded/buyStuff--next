@@ -45,17 +45,36 @@ export const ApiProvider = ({ children }) => {
     try {
       await axios.post('/api/products/product', productData);
       alert('Product uploaded successfully!');
-      fetchData(); 
+      closeModal()
     } catch (error) {
       console.error('Product upload failed:', error);
+    }
+  };
+
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(
+        `/api/location/location/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+      setLocation(locationData.filter(loc => loc._id !== id));
+    } catch (error) {
+      console.error("Error deleting project:", error);
     }
   };
 
   const handleAddLocation = async (productData) => {
     try {
       await axios.post('/api/location/location', productData);
-      alert('Product uploaded successfully!');
-      fetchData(); 
+      alert('Location Added successfully!');
+      fetchData();
+      closeModal()
     } catch (error) {
       console.error('Product upload failed:', error);
     }
@@ -72,7 +91,8 @@ export const ApiProvider = ({ children }) => {
         openModal,
         closeModal,
         handleAddProduct,
-        handleAddLocation
+        handleAddLocation,
+        handleDelete
       }}
     >
       {children}

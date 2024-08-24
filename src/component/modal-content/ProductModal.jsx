@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useApiContext } from '@/DashBoard/FetchContext';
-import { Inputs } from '../Input';
+
 const CLOUDINARY_UPLOAD_PRESET = 'iboyi7t9';
 const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/dpn9svwqm/image/upload`;
 
@@ -27,10 +27,10 @@ export default function ProductForm({ onClose }) {
         if (file) {
             const formData = new FormData();
             formData.append('file', file);
-            formData.append('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET);
+            formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
 
             try {
-                const response = await axios.post(process.env.CLOUDINARY_UPLOAD_URL, formData);
+                const response = await axios.post(CLOUDINARY_UPLOAD_URL, formData);
                 setImageUrl(response.data.secure_url);
             } catch (error) {
                 console.error('Image upload failed:', error);
@@ -53,13 +53,16 @@ export default function ProductForm({ onClose }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <Inputs
-                label='Product Name'
-                name='name'
-                onChange={(e) => setProductName(e.target.value)}
-                placeholder='Enter the new Product name'
-                value={productName}
-            />
+            <div className="mb-4">
+                <label className="block text-sm font-medium text-gray mb-1">Product Name:</label>
+                <input
+                    type="text"
+                    value={productName}
+                    onChange={(e) => setProductName(e.target.value)}
+                    className="border border-gray rounded-md p-2 w-full"
+                    required
+                />
+            </div>
 
             <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Product Image:</label>
@@ -67,34 +70,37 @@ export default function ProductForm({ onClose }) {
                     type="file"
                     onChange={handleImageUpload}
                     accept="image/*"
-                    className=" p-3 h-[45px] text-xs  placeholder:text-black lg:placeholder:text-gray lg:placeholder:text-xs bg-transparent placeholder:text-sm text-[16px] rounded-md border lg:border-gray border-gray-dark w-full outline-none"
+                    className="border text-xs border-gray rounded-md p-2 w-full"
                     required
                 />
             </div>
 
             <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Product Details:</label>
+                <label className="block  text-sm font-medium text-gray-700 mb-1">Product Details:</label>
                 <textarea
                     value={productDetails}
                     onChange={(e) => setProductDetails(e.target.value)}
-                    className="p-3 h-32  resize-none  placeholder:text-black lg:placeholder:text-gray lg:placeholder:text-xs bg-transparent placeholder:text-sm text-[16px] rounded-md border lg:border-gray border-gray-dark w-full outline-none"
+                    className="border resize-none border-gray rounded-md p-2 w-full h-32"
                 />
             </div>
 
-            <Inputs
-                label='Product Price'
-                name='name'
-                onChange={(e) => setProductPrice(e.target.value)}
-                placeholder='Enter the new Product name'
-                value={productPrice}
-            />
+            <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Product Price:</label>
+                <input
+                    type="number"
+                    value={productPrice}
+                    onChange={(e) => setProductPrice(e.target.value)}
+                    className="border border-gray rounded-md p-2 w-full"
+                    required
+                />
+            </div>
 
             <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Category:</label>
                 <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className=" h-[45px] text-xs  placeholder:text-black lg:placeholder:text-gray lg:placeholder:text-xs bg-transparent placeholder:text-sm text-[16px] rounded-md border lg:border-gray border-gray-dark w-full outline-none"
+                    className="border border-gray rounded-md p-2 w-full"
                     required
                 >
                     <option value="">Select a category</option>
@@ -106,7 +112,7 @@ export default function ProductForm({ onClose }) {
 
             <button
                 type="submit"
-                className="bg-blue-500  bg-black text-white rounded-md py-2 px-4 hover:bg-blue-600"
+                className="bg-blue-500 bg-black text-sm text-white rounded-md py-2 px-4 hover:bg-blue-600"
             >
                 Submit
             </button>
