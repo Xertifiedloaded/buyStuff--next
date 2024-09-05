@@ -1,10 +1,10 @@
 import React from 'react'
 import { Input } from './Input'
 import Button from './Button'
-import { useAuth } from '@/DashBoard/AuthContext'
 
 
-export default function FormComponent({ loading, text, handleSubmit, payload, styleName, title, handleChange }) {
+
+export default function FormComponent({ loading, error, text, handleSubmit, payload, styleName, title, handleChange }) {
 
     return (
         <>
