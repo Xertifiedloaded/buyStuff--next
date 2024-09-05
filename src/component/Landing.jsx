@@ -2,7 +2,7 @@ import React from 'react'
 import ProductCategoryList from './ProductCategory'
 import Cart from '@/ReduxComponent/Cart'
 import Header from './Header'
-import Footer from './Footer'
+
 import ReuseableSectionGrid from './ReuseableSectionGrid'
 import Button from './Button'
 
@@ -20,7 +20,7 @@ export default function Landing() {
       />
       <ProductCategoryList />
       <Cart />
-      <Footer />
+
     </>
   )
 }

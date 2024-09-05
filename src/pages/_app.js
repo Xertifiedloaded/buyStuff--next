@@ -4,7 +4,8 @@ import { Provider } from "react-redux";
 import "../styles/global.css";
 import { ApiProvider } from "@/DashBoard/FetchContext";
 import { Fraunces, Manrope } from 'next/font/google'
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const fraunces = Fraunces({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   subsets: ['latin-ext'],
@@ -22,6 +23,7 @@ export default function App({ Component, pageProps }) {
         <AuthProvider>
           <ApiProvider>
             <Provider store={store}>
+            <ToastContainer />
               <Component {...pageProps} />
             </Provider>
           </ApiProvider>

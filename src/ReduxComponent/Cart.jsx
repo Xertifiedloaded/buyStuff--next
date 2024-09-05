@@ -1,103 +1,162 @@
-
-'use client'
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+"use client"
+import React, { useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import {
-    removeFromCart,
-    increaseQuantity,
-    decreaseQuantity,
-    closeSidebar,
-    openSidebar,
-    setLocation,
-} from './ReduxStore';
-import { BiMinus, BiPlus, BiTrash, BiX } from 'react-icons/bi';
+  removeFromCart,
+  increaseQuantity,
+  decreaseQuantity,
+  closeSidebar,
+  openSidebar,
+  setLocation,
+} from "./ReduxStore"
+import { BiMinus, BiPlus, BiTrash, BiX } from "react-icons/bi"
 
-import Paystack from '@/paystack-component/Paystack';
-import { Location } from '@/utils/utils';
+import Paystack from "@/paystack-component/Paystack"
+import { Location } from "@/utils/utils"
+import EmptyCart from "./EmptyCart"
 
 const getLocationPrice = (location) => {
-    const locationObj = Location.find(loc => loc.exactLocation === location);
-    return locationObj ? parseFloat(locationObj.price) : 0;
-};
+  const locationObj = Location.find((loc) => loc.exactLocation === location)
+  return locationObj ? parseFloat(locationObj.price) : 0
+}
 
 const Cart = () => {
-    const cart = useSelector(state => state.cart.cart);
-    const dispatch = useDispatch();
-    const isSidebarOpen = useSelector(state => state.sidebar.isOpen);
-    const [isCheckout, setIsCheckout] = useState(false);
+  const cart = useSelector((state) => state.cart.cart)
+  const dispatch = useDispatch()
+  const isSidebarOpen = useSelector((state) => state.sidebar.isOpen)
+  const [isCheckout, setIsCheckout] = useState(false)
 
-    const toggleSidebar = () => {
-        if (isSidebarOpen) {
-            dispatch(closeSidebar());
-        } else {
-            dispatch(openSidebar());
-        }
-    };
+  const toggleSidebar = () => {
+    if (isSidebarOpen) {
+      dispatch(closeSidebar())
+    } else {
+      dispatch(openSidebar())
+    }
+  }
 
-    const calculateTotalPrice = () => {
-        const cartTotal = cart.reduce((total, item) => total + item.productPrice * item.quantity, 0);
-        return (cartTotal).toFixed(2);
-    };
+  const calculateTotalPrice = () => {
+    const cartTotal = cart.reduce(
+      (total, item) => total + item.productPrice * item.quantity,
+      0
+    )
+    return cartTotal.toFixed(2)
+  }
 
-    const handleCheckout = () => {
-        setIsCheckout(true);
-    };
+  const handleCheckout = () => {
+    setIsCheckout(true)
+  }
 
-    const handleBack = () => {
-        setIsCheckout(false);
-    };
+  const handleBack = () => {
+    setIsCheckout(false)
+  }
 
-    return (
+  return (
+    <div
+      className={`cart capitalize fixed z-50 top-0 lg:w-[40%] w-full text-white overflow-hidden bg-[#232527] mx-auto p-[25px] right-0 h-full shadow-custom-shadow transition-transform transform ${
+        isSidebarOpen ? "translate-x-0" : "translate-x-full"
+      }`}
+    >
+      <div className="">
         <div
-            className={`cart fixed z-50 top-0 lg:w-[40%] xs:w-full overflow-hidden bg-[#f9f9f9] mx-auto p-[25px] right-0 h-full shadow-custom-shadow transition-transform transform ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}
+          className={`cart__content text-white  transition-transform transform ${
+            isCheckout ? "-translate-x-full" : "translate-x-0"
+          }`}
         >
-            <div className={`cart__content transition-transform transform ${isCheckout ? '-translate-x-full' : 'translate-x-0'}`}>
-                <div className='flex justify-between items-center'>
-                    <h2 className='lg:text-2xl'>Cart</h2>
-                    <BiX fontSize='30' onClick={toggleSidebar} />
-                </div>
-                {cart.length === 0 ? (
-                    <p>Your cart is empty</p>
-                ) : (
-                    <div>
-                        <ul className="cart__items list-none p-0 mt-5">
-                            {cart.map(item => (
-                                <li key={item.productId} className="cart__item px-[15px] py-[2px] mb-[10px] shadow-custom rounded-sm">
-                                    <div className="cart__info flex-grow">
-                                        <div className='flex my-2 text-sm items-center justify-between'>
-                                            <span className="cart__name lg:text-md font-700 text-[#444]">{item.productName}</span>
-                                            <p>${item.productPrice.toFixed(2)}</p>
-                                        </div>
-                                        <span className="cart__price text-[#888] flex justify-between">
-                                            <span>{item.quantity} Qty</span>
-                                            <p>${(item.productPrice * item.quantity).toFixed(2)}</p>
-                                        </span>
-                                        <div className='flex justify-between items-center my-2'>
-                                            <div className='flex gap-3 justify-end items-center my-2'>
-                                                <BiPlus onClick={() => dispatch(increaseQuantity(item.productId))} />
-                                                <BiMinus onClick={() => dispatch(decreaseQuantity(item.productId))} />
-                                            </div>
-                                            <BiTrash color='red' onClick={() => dispatch(removeFromCart(item.productId))} />
-                                        </div>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                        <h3 className='lg:text-2xl text-end font-700'>Total: ${calculateTotalPrice()}</h3>
-                        <button
-                            className="cart__order-button block transition-bg-color duration-300 ease hover:bg-blue-500 w-full p-[10px] mt-[10px] border-0 rounded-[4px] hover:bg-[#218838] cursor-pointer bg-[#28a745] text-white"
-                            onClick={handleCheckout}
-                        >
-                            Checkout
-                        </button>
-                    </div>
-                )}
+          <div className="flex justify-between  overflow-hidden items-center">
+            <h2 className="text-2xl font-bold">Cart</h2>
+            <BiX fontSize="30" onClick={toggleSidebar} />
+          </div>
+          {cart.length === 0 ? (
+            <EmptyCart />
+          ) : (
+            <div>
+              <ul className="cart__items max-h-[645px] overflow-y-auto space-y-5 mt-5">
+                {cart
+                  .slice()
+                  .reverse()
+                  .map((item) => (
+                    <li
+                      key={item.productId}
+                      className="cart__item p-4 shadow-md rounded-lg bg-gray-50"
+                    >
+                      <div className="cart__info">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="cart__name text-lg font-semibold text-gray-800">
+                            {item.productName}
+                          </span>
+                          <p className="text-gray-700">
+                            ${item.productPrice.toFixed(2)}
+                          </p>
+                        </div>
+                        <div className="cart__price text-sm text-gray-500 flex justify-between items-center mb-2">
+                          <span>{item.quantity} Qty</span>
+                          <p>
+                            ${(item.productPrice * item.quantity).toFixed(2)}
+                          </p>
+                        </div>
+                        <div className="flex justify-between items-center mt-4">
+                          <div className="flex items-center space-x-3">
+                            <button
+                              onClick={() =>
+                                dispatch(increaseQuantity(item.productId))
+                              }
+                              className="h-4 w-4 rounded-full  bg-green-500 text-white  hover:bg-green-600 transition duration-300"
+                              aria-label="Increase quantity"
+                            >
+                              <BiPlus />
+                            </button>
+                            <button
+                              onClick={() =>
+                                dispatch(decreaseQuantity(item.productId))
+                              }
+                              className="h-4 w-4 rounded-full  bg-red-500 text-white  hover:bg-red-600 transition duration-300"
+                              aria-label="Decrease quantity"
+                            >
+                              <BiMinus />
+                            </button>
+                          </div>
+                          <button
+                            onClick={() =>
+                              dispatch(removeFromCart(item.productId))
+                            }
+                            className="h-5 flex justify-center items-center  w-5 rounded-full  text-white  hover:bg-red-600 transition duration-300"
+                            aria-label="Remove from cart"
+                          >
+                            <BiTrash />
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+              </ul>
+              <div className="mt-6 flex justify-between items-center">
+                <h3 className="text-xl font-bold text-gray-800">
+                  Total: ${calculateTotalPrice()}
+                </h3>
+                <button
+                  className="cart__order-button bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition duration-300"
+                  onClick={handleCheckout}
+                >
+                  Checkout
+                </button>
+              </div>
             </div>
-            <div className={`payment__content transition-transform transform absolute top-0 left-0 w-full h-full bg-[#f9f9f9] p-[25px] ${isCheckout ? 'translate-x-0' : 'translate-x-full'}`}>
-                <Paystack calculateTotalPrice={calculateTotalPrice} cart={cart} handleBack={handleBack} />
-            </div>
+          )}
         </div>
-    );
-};
+        <div
+          className={`payment__content transition-transform transform absolute top-0 left-0 w-full h-full bg-[#232527] p-[25px] ${
+            isCheckout ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <Paystack
+            calculateTotalPrice={calculateTotalPrice}
+            cart={cart}
+            handleBack={handleBack}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
 
-export default Cart;
+export default Cart

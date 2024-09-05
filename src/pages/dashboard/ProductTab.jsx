@@ -55,20 +55,21 @@ export default function ProductTab({ toggleModal }) {
                     <Button onclick={() => openModal('product')} text="Add New Product" styles="bg-blue-500 bg-black hover:bg-blue-600 text-black text-white py-2 px-4 rounded" type="button" />
                 </div>
 
-                <div className="products">
+                <div className="products text-black">
                     {product.length > 0 ? (
                         product.map((product, idx) => (
                             <div
                                 key={idx}
-                                className="grid lg:grid-cols-5 grid-cols-4 items-center transition-all duration-300 ease-in-out overflow-hidden gap-4 mb-4 bg-white rounded-lg shadow hover:shadow-lg p-4"
+                                className="grid text-black lg:grid-cols-5 grid-cols-4 items-center transition-all duration-300 ease-in-out overflow-hidden gap-4 mb-4 bg-white rounded-lg shadow hover:shadow-lg p-4"
                             >
                                 <div className="flex justify-center">
                                     <CloudinaryImage
                                         alt={product.productName}
                                         width="120"
                                         height="120"
+                                        
                                         src={product.productImage}
-                                        className="w-[100px] h-20 object-cover rounded"
+                                        className="w-[100px] object-cover h-20  rounded"
                                     />
                                 </div>
                                 <div>

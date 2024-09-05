@@ -3,7 +3,7 @@ import React from "react";
 import { FaMouse } from "react-icons/fa";
 import Logo from "../assets/hamburger.svg";
 import { useDispatch, useSelector } from "react-redux";
-
+import Image from "next/image";
 import Link from "next/link";
 import { CiShoppingCart } from "react-icons/ci";
 import { MdLocationOn } from "react-icons/md";
@@ -48,10 +48,13 @@ const Header: React.FC = () => {
                 {cart.length === 0 ? null : cart.length}
               </small>
             </div>
-            <img
+            <Image
               src={Logo}
-              className="invert block lg:invert-0 lg:hidden"
-              alt=""
+              className="invert block object-cover lg:invert-0 lg:hidden"
+              alt="none"
+              width={20}
+              height={20}
+              objectFit="cover"
             />
           </div>
 

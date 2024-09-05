@@ -9,6 +9,7 @@ export default function CloudinaryImage({ src, width,alt, height, style }) {
             width={width}
             height={height}
             className={style}
+            objectFit='cover'
         />
     );
 }

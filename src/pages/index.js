@@ -1,4 +1,5 @@
 import Landing from "@/component/Landing";
+import ChadCnTab from "@/testing-chadCn/ChadCnTab";
 import Head from "next/head";
 import React from "react";
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       </Head>
       <main>
         <Landing />
+        {/* <ChadCnTab/> */}
       </main>
     </>
   );

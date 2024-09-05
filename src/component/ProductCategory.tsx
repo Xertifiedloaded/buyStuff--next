@@ -1,25 +1,48 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../ReduxComponent/ReduxStore";
-import { useApiContext } from "@/DashBoard/FetchContext";
-import Shimmer from "./Shimmer";
-import ReuseableSectionGrid from "./ReuseableSectionGrid";
+import React, { useState, useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { toast } from "react-toastify"
+
+import { addToCart, decreaseQuantity } from "../ReduxComponent/ReduxStore"
+import { useApiContext } from "@/DashBoard/FetchContext"
+import Shimmer from "./Shimmer"
+import ReuseableSectionGrid from "./ReuseableSectionGrid"
+import Image from "next/image"
+import { BiMinus } from "react-icons/bi"
 
 const ProductCategoryList: React.FC = () => {
-  const { product } = useApiContext();
-  const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true);
+  const { product } = useApiContext()
+  const dispatch = useDispatch()
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (product && product.length > 0) {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  }, [product]);
-  // categories
-  const categories = [...new Set(product.map((p) => p.category))];
+  }, [product])
+
+  const categories = [...new Set(product.map((p) => p.category))]
 
   const styleName =
-    "w-full bg-blue-500 text-black border border-black py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300";
+    "w-full bg-blue-500 text-black border border-black py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product))
+    toast.success(`${product.productName} added to cart!`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      style: {
+        width: "100%",
+        maxWidth: "100%",
+        margin: 0,
+        padding: "1rem",
+        borderRadius: 0,
+      },
+    })
+  }
 
   return (
     <>
@@ -28,52 +51,53 @@ const ProductCategoryList: React.FC = () => {
           <Shimmer />
         ) : (
           categories.map((category) => (
-            <section key={category} className="category-section">
-              <h1 className="lg:text-5xl text-2xl my-5 font-bold lg:my-10 uppercase">
+            <section
+              key={category}
+              className="category-section capitalize text-black"
+            >
+              <h1 className="lg:text-5xl text-2xl text-white my-5 font-bold lg:my-10 uppercase">
                 {category}
               </h1>
-              <ul className="product-grid grid lg:grid-cols-2 grid-cols-1 gap-4">
+
+              <ul className="product-grid font-poppins flex flex-wrap gap-4">
                 {product
                   .filter((p) => p.category === category)
                   .map((product) => (
                     <li
                       key={product.productId}
-                      className="product-item md:px-2 grid grid-cols-2 lg:grid-cols-2 border border-white rounded-lg bg-white shadow-lg min-h-[130px] py-3 px-2"
+                      className="product-item text-white flex flex-col lg:flex-row lg:justify-between lg:gap-2 border border-[#222326] rounded-lg shadow-lg p-4 w-full lg:w-[48%] min-h-[130px]"
                     >
-                      <div
-                        className="rounded-lg"
-                        style={{
-                          backgroundImage: `url(${product.productImage})`,
-                          backgroundSize: "cover",
-                          backgroundPosition: "center",
-                          width: "90%",
-                          height: "100%",
-                        }}
-                      />
-                      <div className="lg:flex items-start block gap-4 justify-between">
-                        <div className="lg:w-[70%] flex-1">
+                      <div className="w-full lg:w-[40%] overflow-hidden rounded-sm mb-4 lg:mb-0">
+                        <Image
+                          width={200}
+                          height={200}
+                          alt="img"
+                          className="object-cover w-full h-28"
+                          src={product.productImage}
+                        />
+                      </div>
+                      <div className="flex px-2 flex-col justify-between flex-1">
+                        <div className="flex-1">
                           <h3 className="product-name text-sm font-semibold">
                             {product.productName}
                           </h3>
-                     
+
                           {product.productDetails && (
-                            <p className="product-details lg:py-4 text-xs">
+                            <p className="product-details py-2 lg:py-4 text-xs">
                               {product.productDetails}
                             </p>
                           )}
                         </div>
-                        <div className="flex items-center justify-between lg:block">
+                        <div className="flex items-center justify-between mt-4">
                           <p className="product-price text-sm font-bold">
                             ₦{product.productPrice.toFixed(2)}
                           </p>
-                          <div className="my-4 flex w-full justify-center items-end">
-                            <button
-                              onClick={() => dispatch(addToCart(product))}
-                              className="bg-black text-white w-8 h-8 rounded-full"
-                            >
-                              +
-                            </button>
-                          </div>
+                          <button
+                            onClick={() => handleAddToCart(product)}
+                            className="bg-white text-black w-6 h-6 hover:bg-gray transition-all duration-500 ease-linear rounded-full flex items-center justify-center"
+                          >
+                            +
+                          </button>
                         </div>
                       </div>
                     </li>
@@ -84,7 +108,7 @@ const ProductCategoryList: React.FC = () => {
         )}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ProductCategoryList;
+export default ProductCategoryList

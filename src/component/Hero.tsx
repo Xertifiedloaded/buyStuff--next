@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const HeroSection = () => {
   return (
-    <section className="relative bg-gray-800 text-white overflow-hidden">
+    <section className="relative w-full h-screen bg-gray-800 text-white overflow-hidden">
       <div className="absolute inset-0">
         <Image
           src="/lingerie.jpeg"
@@ -13,6 +13,7 @@ const HeroSection = () => {
           objectFit="cover"
           quality={100}
           priority
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
       </div>
