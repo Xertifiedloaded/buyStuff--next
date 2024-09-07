@@ -5,26 +5,42 @@ import ProductData from "./ProductData";
 import { useApiContext } from "@/DashBoard/FetchContext"; 
 
 export default function Swipe() {
+  const [flashSaleProducts, setFlashSaleProducts] = useState([]);
 
+  // Fetch flash sale products when the component mounts
+  useEffect(() => {
+    const fetchFlashSaleProducts = async () => {
+      try {
+        const response = await fetch("/api/products/flashsales");
+        const data = await response.json();
+        setFlashSaleProducts(data);
+      } catch (error) {
+        console.error("Error fetching flash sale products:", error);
+      }
+    };
 
-
-
+    fetchFlashSaleProducts();
+  }, []);
 
   return (
     <div>
-      <Swiper
-        data={flashSaleProducts}
-        slidesPerView={4}
-        spaceBetween={30}
-        renderItem={(product) => <ProductData {...product} />}
-        nextButtonClass="product-slider-next"
-        prevButtonClass="product-slider-prev"
-        breakpoints={{
-          320: { slidesPerView: 1, spaceBetween: 10 },
-          640: { slidesPerView: 2, spaceBetween: 20 },
-          1024: { slidesPerView: 4, spaceBetween: 30 },
-        }}
-      />
+      {flashSaleProducts.length > 0 ? (
+        <Swiper
+          data={flashSaleProducts}
+          slidesPerView={4}
+          spaceBetween={30}
+          renderItem={(product) => <ProductData {...product} />}
+          nextButtonClass="product-slider-next"
+          prevButtonClass="product-slider-prev"
+          breakpoints={{
+            320: { slidesPerView: 1, spaceBetween: 10 },
+            640: { slidesPerView: 2, spaceBetween: 20 },
+            1024: { slidesPerView: 4, spaceBetween: 30 },
+          }}
+        />
+      ) : (
+        <p>Loading flash sale products...</p>
+      )}
       <div className="button-swiper flex justify-between lg:mt-2 items-center">
         <div className="transform w-full gap-4 flex justify-end items-center">
           <ChevronLeftCircle

@@ -10,7 +10,7 @@ export default function ProductTab({ toggleModal }) {
     const { product } = useApiContext()
     const [isLoading, setIsLoading] = useState(true)
     const [isError, setIsError] = useState(false)
-    const { openModal, handleDeleteProduct } = useApiContext()
+    const { openModal, handleDeleteProduct, } = useApiContext()
     useEffect(() => {
         const timer = setTimeout(() => {
             if (isLoading) {

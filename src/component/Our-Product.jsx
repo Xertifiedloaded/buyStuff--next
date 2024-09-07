@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react"
 import Today from "./Today"
 import { useDispatch } from "react-redux"
 import { toast } from "react-toastify"
-import { addToCart, decreaseQuantity } from "../ReduxComponent/ReduxStore"
+import { addToCart } from "../ReduxComponent/ReduxStore"
 import { useApiContext } from "@/DashBoard/FetchContext"
 import Button, { Card } from "./Button"
+import { useRouter } from 'next/router'
 
 export default function OurProduct() {
   const { product } = useApiContext()
   const dispatch = useDispatch()
+  const router = useRouter() // Import and initialize useRouter
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -16,6 +18,7 @@ export default function OurProduct() {
       setIsLoading(false)
     }
   }, [product])
+
   const handleAddToCart = (product) => {
     dispatch(addToCart(product))
     toast.success(`${product.productName} added to cart!`, {
@@ -34,12 +37,17 @@ export default function OurProduct() {
       },
     })
   }
+
+  const handleViewAllProducts = () => {
+    router.push('/products')
+  }
+
   return (
     <>
       <section className="wrapper mt-10">
         <Today Today="Our Products" />
-        <h1 className="text-3xl mt-2">Explore Our Products </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <h1 className="text-3xl mt-2">Explore Our Products</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-1 gap-3  lg:grid-cols-3 xl:grid-cols-4">
           {product.slice(0, 8).map((product) => (
             <Card
               key={product.productId}
@@ -49,10 +57,13 @@ export default function OurProduct() {
           ))}
         </div>
         <div className="text-center mt-6">
-          <Button
-            styles="bg-[#DB4444]  text-white rounded-sm text-xs px-10 font-bold py-3"
-            text="View All Products"
-          />
+        <button
+            type="button"
+            className="bg-[#DB4444] text-white rounded-md text-sm px-8 py-3 font-bold hover:bg-[#c63c3c] transition-colors duration-300"
+            onClick={handleViewAllProducts}
+          >
+            View All Products
+          </button>
         </div>
       </section>
     </>

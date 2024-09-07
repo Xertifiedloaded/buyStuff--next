@@ -20,9 +20,9 @@ export default function ProductForm({ onClose }) {
   const [productDetails, setProductDetails] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [category, setCategory] = useState("");
-  const [isFlashSale, setIsFlashSale] = useState(false); // New state for flash sale
+  const [isFlashSale, setIsFlashSale] = useState(false); 
   const [imageUrl, setImageUrl] = useState("");
-  const { handleAddProduct } = useApiContext();
+  const { handleAddProduct,fetchData } = useApiContext();
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -48,9 +48,9 @@ export default function ProductForm({ onClose }) {
       productDetails,
       productPrice,
       category,
-      flashSale: isFlashSale, 
+      isFlashSale, 
     };
-
+    fetchData()
     handleAddProduct(productData);
   };
 

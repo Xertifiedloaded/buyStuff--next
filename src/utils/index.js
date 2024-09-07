@@ -1,6 +1,4 @@
-import image2 from "../../public/icon-Customer.svg"
-import image from "../../public/icon-delivery.svg"
-import image3 from "../../public/icon-secure.svg"
+
 export const collections = [
   {
     name: "Products",
@@ -22,17 +20,17 @@ export const collections = [
 
 export const datum = [
   {
-    icon: image,
+    icon: '/icon-delivery.svg',
     heading: "FREE AND FAST DELIVERY",
     para: "Free delivery for all orders over $140",
   },
   {
-    icon: image2,
+    icon: '/icon-Customer.svg',
     heading: "24/7 CUSTOMER SERVICE",
     para: "Friendly 24/7 customer support",
   },
   {
-    icon: image3,
+    icon: '/icon-secure.svg',
     heading: "MONEY BACK GUARANTEE",
     para: "We return money within 30 days",
   },

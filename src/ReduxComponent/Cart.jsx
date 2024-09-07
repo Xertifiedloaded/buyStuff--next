@@ -14,6 +14,7 @@ import { BiMinus, BiPlus, BiTrash, BiX } from "react-icons/bi"
 
 
 import EmptyCart from "./EmptyCart"
+import Paystack from "@/paystack-component/Paystack"
 
 const getLocationPrice = (location) => {
   const locationObj = Location.find((loc) => loc.exactLocation === location)

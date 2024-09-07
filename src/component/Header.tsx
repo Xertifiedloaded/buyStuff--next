@@ -12,6 +12,7 @@ import { PiBicycleThin } from "react-icons/pi"
 import { closeSidebar, openSidebar } from "@/ReduxComponent/ReduxStore"
 import GridCategory from "./GridCategory"
 import HeroSection from "./Hero"
+import Cart from "@/ReduxComponent/Cart"
 
 
 const Header: React.FC = () => {

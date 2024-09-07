@@ -112,7 +112,8 @@ export const ApiProvider = ({ children }) => {
         handleAddProduct,
         handleAddLocation,
         handleDelete,
-
+        handleDeleteProduct,
+        fetchData
       }}
     >
       {children}

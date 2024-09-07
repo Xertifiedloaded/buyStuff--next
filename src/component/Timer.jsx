@@ -1,34 +1,31 @@
 import React from "react"
 import Today from "./Today"
 
-export default function Timer({ days, hours, minutes, seconds }) {
-  return (
-    <>
-      <section>
-        <Today Today="Today" />
-        <div className="lg:flex lg:items-start mt-6 gap-40">
-          <h1 className="text-5xl font-700">Flash Sales</h1>
+const Timer = ({ days, hours, minutes, seconds }) => (
+  <section className="flex flex-col lg:flex-row  lg:items-center gap-2 lg:gap-12  lg:my-10">
+    <div>
+      <Today Today="Today" />
+      <h1 className="text-3xl lg:text-4xl"> FlashSales</h1>
+    </div>
+    <div className="flex lg:justify-center items-center space-x-4">
+      <div className="text-center">
+        <div className="text-3xl font-bold">{days}</div>
+        <div className="text-xs">Days</div>
+      </div>
+      <div className="text-center">
+        <div className="text-3xl font-bold">{hours}</div>
+        <div className="text-xs">Hours</div>
+      </div>
+      <div className="text-center">
+        <div className="text-3xl font-bold">{minutes}</div>
+        <div className="text-xs">Minutes</div>
+      </div>
+      <div className="text-center">
+        <div className="text-3xl font-bold">{seconds}</div>
+        <div className="text-xs">Seconds</div>
+      </div>
+    </div>
+  </section>
+)
 
-          <div className="flex space-x-4 gap-5 lg:justify-center lg:items-center  text-lg md:text-2xl font-semibold ">
-            <div className="text-md flex justify-center items-center flex-col">
-              <p className="text-xs md:text-2xl font-bold">{days}</p>
-              <span className="text-xs ">Days</span>
-            </div>
-            <div className="text-md flex justify-center items-center flex-col">
-              <p className="text-xs md:text-2xl font-bold">{hours}</p>
-              <span className="text-xs">Hours</span>
-            </div>
-            <div className="text-md flex justify-center items-center flex-col">
-              <p className="text-xs md:text-2xl font-bold">{minutes}</p>
-              <span className="text-xs">Minutes</span>
-            </div>
-            <div className="text-md flex justify-center items-center flex-col">
-              <p className="text-xs md:text-2xl font-bold">{seconds}</p>
-              <span className="text-xs">Seconds</span>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  )
-}
+export default Timer
