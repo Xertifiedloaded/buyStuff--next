@@ -25,7 +25,7 @@ export const datum = [
     para: "Free delivery for all orders over $140",
   },
   {
-    icon: '/icon-Customer.svg',
+    icon: '/icon-customer.svg',
     heading: "24/7 CUSTOMER SERVICE",
     para: "Friendly 24/7 customer support",
   },
