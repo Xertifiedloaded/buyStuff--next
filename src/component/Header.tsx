@@ -1,46 +1,51 @@
-"use client";
-import React from "react";
-import { FaMouse } from "react-icons/fa";
-import Logo from "../assets/hamburger.svg";
-import { useDispatch, useSelector } from "react-redux";
-import Image from "next/image";
-import Link from "next/link";
-import { CiShoppingCart } from "react-icons/ci";
-import { MdLocationOn } from "react-icons/md";
-import { CiClock1 } from "react-icons/ci";
-import { PiBicycleThin } from "react-icons/pi";
-import { closeSidebar, openSidebar } from "@/ReduxComponent/ReduxStore";
-import GridCategory from "./GridCategory";
-import HeroSection from "./Hero";
+"use client"
+import React from "react"
+import { FaMouse } from "react-icons/fa"
+import Logo from "../assets/hamburger.svg"
+import { useDispatch, useSelector } from "react-redux"
+import Image from "next/image"
+import Link from "next/link"
+import { CiShoppingCart } from "react-icons/ci"
+import { MdLocationOn } from "react-icons/md"
+import { CiClock1 } from "react-icons/ci"
+import { PiBicycleThin } from "react-icons/pi"
+import { closeSidebar, openSidebar } from "@/ReduxComponent/ReduxStore"
+import GridCategory from "./GridCategory"
+import HeroSection from "./Hero"
+
 
 const Header: React.FC = () => {
-  const dispatch = useDispatch();
-  const isSidebarOpen = useSelector((state) => state.sidebar.isOpen);
-  const cart = useSelector((state) => state.cart.cart);
+  const dispatch = useDispatch()
+  const isSidebarOpen = useSelector((state) => state.sidebar.isOpen)
+  const cart = useSelector((state) => state.cart.cart)
   const toggleSidebar = () => {
     if (isSidebarOpen) {
-      dispatch(closeSidebar());
+      dispatch(closeSidebar())
     } else {
-      dispatch(openSidebar());
+      dispatch(openSidebar())
     }
-  };
+  }
   interface NavProps {
-    path?: string;
-    title: string;
-    onClick?: () => void;
+    path?: string
+    title: string
+    onClick?: () => void
   }
 
   const NAV: NavProps[] = [
     { path: "/", title: "Home" },
     { title: "Cart", onClick: toggleSidebar },
     { path: "/about", title: "Checkout" },
-  ];
+  ]
 
   return (
     <>
-      <header className="bg-cover  bg-black text-white bg-center lg:h-screen min-h-[700px] hero">
-        <nav className=" fixed flex items-center justify-between z-40 lg:px-10 px-4 py-5 top-0 left-0 w-full right-0 bg-black  mx-auto">
-          <h1 className="logo font-700 text-2xl lg:text-2xl">Buy<span className="text-red-600">Stuff</span> </h1>
+      <header className="">
+        <nav className=" fixed flex bg-black text-white items-center justify-between z-40 lg:px-10 px-4 py-5 top-0 left-0 w-full right-0   mx-auto">
+          <h1 className="logo font-700 text-2xl lg:text-2xl">
+            <Link href="/">
+              Buy<span className="text-red-600">Stuff</span>
+            </Link>
+          </h1>
           <div className=" lg:hidden flex items-center gap-4 justify-end">
             <div className=" relative" onClick={toggleSidebar}>
               <CiShoppingCart className="font-700" fontSize="30px" />
@@ -79,30 +84,11 @@ const Header: React.FC = () => {
             ))}
           </ul>
         </nav>
-
-        <HeroSection />
+        {/* open cart */}
+        {isSidebarOpen && <Cart />}
       </header>
-
-      <section className="wrapper">
-        <div className="flex text-md my-3 items-center gap-6">
-          <MdLocationOn />
-          <p>Inside Mobil Filling Station, Odo-Eran Obantoko • More</p>
-        </div>
-        <div className="flex my-3 text-md items-center gap-6">
-          <CiClock1 />
-          <p className="text-greenColor">
-            Open for online orders until 8:00 pm
-          </p>
-        </div>
-        <div className="flex my-3 text-md items-center gap-6">
-          <PiBicycleThin />
-          <p>1 hour delivery time</p>
-        </div>
-
-        <GridCategory />
-      </section>
     </>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

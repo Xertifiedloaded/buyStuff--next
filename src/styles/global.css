@@ -2,23 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .slanted-bg {
+    @apply w-full h-96 bg-gray-dark;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  }
 
+  .trapezoid-bg {
+    @apply w-full h-96 bg-gray-dark;
+    clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+  }
+
+  .curved-bg {
+    @apply w-full h-96 bg-orange-500;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+  }
+}
 
 *,*::before,*::after{
   padding: 0;
   margin: 0;
 }
 body {
-  background: #000506;
+  background: black;
   color: white;
   font-family: "Poppins", sans-serif;
 }
+
+
+
+
 .wrapper{
   @apply w-[85%] mx-auto
 }
+.list{
+  @apply mb-6 text-sm text-gray-light
+} 
 .nav-wrapper{
   @apply px-4 md:px-24  lg:px-28
 }
+
+
+
+
+
 .hero {
   background-repeat: no-repeat;
   background-size: 100%;
@@ -37,6 +64,19 @@ input,textarea{
   background-position: center;
   background-size: cover;
 }
+
+/* .curved-bg {
+  width: 100%;
+  height: 400px;
+  background-color: #f58220; 
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+} */
+
+
+
+
+
+
 
 
 

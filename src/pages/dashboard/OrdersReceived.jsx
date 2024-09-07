@@ -13,7 +13,7 @@ const OrdersReceived = () => {
   }, [orders]);
 
   return (
-    <div className="">
+    <div className="text-black">
       {loading ? (
         <div className="flex justify-center items-center py-20">
           loading

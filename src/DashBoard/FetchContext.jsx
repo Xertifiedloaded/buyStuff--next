@@ -27,7 +27,8 @@ export const ApiProvider = ({ children }) => {
       const [productsResponse, locationResponse, ordersResponse] = await Promise.all([
         axios.get('/api/products/product'),
         axios.get('/api/location/location'),
-        axios.get('/api/auth/checkout')
+        axios.get('/api/auth/checkout'),
+   
       ]);
       setProducts(productsResponse.data);
       setLocation(locationResponse.data);
@@ -111,7 +112,7 @@ export const ApiProvider = ({ children }) => {
         handleAddProduct,
         handleAddLocation,
         handleDelete,
-        handleDeleteProduct
+
       }}
     >
       {children}

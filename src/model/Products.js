@@ -27,8 +27,11 @@ const ProductSchema = new mongoose.Schema({
     enum: ["Panties", "Brallets", "Shorts", "Bra", "Night Wears", "Boxers"],
     required: true,
   },
+  isFlashSale: {
+    type: Boolean,
+    default: false, 
+  },
 });
 
-const Product =
-  mongoose.models.Product || mongoose.model("Product", ProductSchema);
+const Product = mongoose.models.Product || mongoose.model("Product", ProductSchema);
 export default Product;

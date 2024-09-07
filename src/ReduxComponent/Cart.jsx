@@ -11,8 +11,8 @@ import {
 } from "./ReduxStore"
 import { BiMinus, BiPlus, BiTrash, BiX } from "react-icons/bi"
 
-import Paystack from "@/paystack-component/Paystack"
-import { Location } from "@/utils/utils"
+
+
 import EmptyCart from "./EmptyCart"
 
 const getLocationPrice = (location) => {

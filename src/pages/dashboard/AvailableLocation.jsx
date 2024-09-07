@@ -21,9 +21,9 @@ export default function AvailableLocation() {
 
   return (
     <>
-      <section className="max-w-7xl mx-auto ">
+      <section className="max-w-7xl mx-auto text-black ">
         <div className="flex justify-end items-center mb-6">
-          <Button onclick={() => openModal('location')} text="Add New Product" styles="bg-blue-500 bg-black hover:bg-blue-600 text-black text-white py-2 px-4 rounded" type="button" />
+          <Button onclick={() => openModal('location')} text="Add New Product" styles="bg-blue-500 bg-white text-black hover:bg-blue-600 text-black text-xs py-2 px-4 rounded" type="button" />
         </div>
         {loading ? (
           <div className="text-center text-black text-lg font-medium py-10">

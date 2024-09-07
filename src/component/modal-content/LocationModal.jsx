@@ -22,7 +22,7 @@ export default function LocationForm({ onClose }) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='text-black'>
             <Inputs
                 label='Exact Location'
                 type="text"
