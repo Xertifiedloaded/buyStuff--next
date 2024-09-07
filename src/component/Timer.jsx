@@ -2,7 +2,7 @@ import React from "react"
 import Today from "./Today"
 
 const Timer = ({ days, hours, minutes, seconds }) => (
-  <section className="flex flex-col lg:flex-row  lg:items-center gap-2 lg:gap-12  lg:my-10">
+  <section className="flex flex-col lg:flex-row lg:justify-between  lg:items-center gap-2 lg:gap-12  lg:my-10">
     <div>
       <Today Today="Today" />
       <h1 className="text-3xl lg:text-4xl"> FlashSales</h1>

@@ -6,8 +6,6 @@ import { useApiContext } from "@/DashBoard/FetchContext";
 
 export default function Swipe() {
   const [flashSaleProducts, setFlashSaleProducts] = useState([]);
-
-  // Fetch flash sale products when the component mounts
   useEffect(() => {
     const fetchFlashSaleProducts = async () => {
       try {

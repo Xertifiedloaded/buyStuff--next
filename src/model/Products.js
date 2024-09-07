@@ -31,6 +31,10 @@ const ProductSchema = new mongoose.Schema({
     type: Boolean,
     default: false, 
   },
+  isNewArrival: { 
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Product = mongoose.models.Product || mongoose.model("Product", ProductSchema);

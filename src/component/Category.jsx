@@ -29,7 +29,7 @@ export default function Category() {
 
   return (
     <>
-      <section className="wrapper">
+      <section className="wrapper lg:mt-[100px]">
         <div className="mb-4">
           <Today Today="Category" />
           <h1 className="text-3xl mt-4 font-500">Browse By Category</h1>

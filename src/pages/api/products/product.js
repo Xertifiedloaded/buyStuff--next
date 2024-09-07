@@ -1,32 +1,31 @@
-import databaseConnection from "@/lib/mongodb";
-import Product from "@/model/Products";
+import databaseConnection from "@/lib/mongodb"
+import Product from "@/model/Products"
 
 export default async function handler(req, res) {
-  await databaseConnection();
-  const { method } = req;
+  await databaseConnection()
+  const { method } = req
 
   switch (method) {
     case "GET":
       try {
-        // Fetch all products and sort by latest
-        const products = await Product.find().sort({ _id: -1 });
-        res.status(200).json(products);
+        const products = await Product.find().sort({ _id: -1 })
+        res.status(200).json(products)
       } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
+        res.status(500).json({ message: "Server error", error: error.message })
       }
-      break;
+      break
 
     case "POST":
       try {
-
         const {
           productName,
           productImage,
           productDetails,
           productPrice,
           category,
-          isFlashSale = false, 
-        } = req.body;
+          isFlashSale = false,
+          isNewArrival = false,
+        } = req.body
 
         if (
           !productName ||
@@ -35,7 +34,7 @@ export default async function handler(req, res) {
           !productPrice ||
           !category
         ) {
-          return res.status(400).json({ message: "Missing required fields" });
+          return res.status(400).json({ message: "Missing required fields" })
         }
 
         const product = new Product({
@@ -45,19 +44,21 @@ export default async function handler(req, res) {
           productPrice,
           category,
           isFlashSale,
-        });
+          isNewArrival,
+        })
+console.log(product);
 
-        await product.save();
+        await product.save()
 
-        const products = await Product.find({});
-        res.status(201).json(products);
+        const products = await Product.find({})
+        res.status(201).json(products)
       } catch (error) {
-        res.status(400).json({ message: "Bad Request", error: error.message });
+        res.status(400).json({ message: "Bad Request", error: error.message })
       }
-      break;
+      break
 
     default:
-      res.setHeader("Allow", ["GET", "POST"]);
-      res.status(405).end(`Method ${method} Not Allowed`);
+      res.setHeader("Allow", ["GET", "POST"])
+      res.status(405).end(`Method ${method} Not Allowed`)
   }
 }

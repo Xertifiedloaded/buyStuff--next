@@ -10,6 +10,7 @@ import Footer from "@/component/Footer"
 import IconSection from "@/component/IconSection"
 import FlashSaleProducts from "@/component/FlashSalesProduct"
 import FlashSaleCountdown from "@/component/CountDown"
+import NewArrival from "@/NewArrival"
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       </Head>
       <main>
         <FlashSaleCountdown />
+        <NewArrival />
         <Category />
         <OurProduct />
         <IconSection />

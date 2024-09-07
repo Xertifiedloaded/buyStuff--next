@@ -44,7 +44,7 @@ export default function OurProduct() {
 
   return (
     <>
-      <section className="wrapper mt-10">
+      <section className="wrapper lg:mt-[100px]">
         <Today Today="Our Products" />
         <h1 className="text-3xl mt-2">Explore Our Products</h1>
         <div className="grid grid-cols-1 sm:grid-cols-1 gap-3  lg:grid-cols-3 xl:grid-cols-4">

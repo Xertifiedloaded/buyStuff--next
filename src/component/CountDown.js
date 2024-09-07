@@ -33,7 +33,6 @@ const FlashSaleCountdown = () => {
             />
           </div>
           <Swipe />
-   
         </div>
       );
     }
