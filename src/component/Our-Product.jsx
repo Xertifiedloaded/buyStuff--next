@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 export default function OurProduct() {
   const { product } = useApiContext()
   const dispatch = useDispatch()
-  const router = useRouter() // Import and initialize useRouter
+  const router = useRouter() 
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
