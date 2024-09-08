@@ -11,7 +11,6 @@ export default async function handler(req, res) {
       try {
 
         const newArrival = await Product.find({ isNewArrival: true }).sort({ _id: -1 });
-        console.log("newArrival Products:", newArrival);
         
         if (newArrival.length === 0) {
           console.log("No Arrival products found");

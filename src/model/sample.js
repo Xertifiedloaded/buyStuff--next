@@ -8,7 +8,7 @@ export default function Locations() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch locations from the API
+
   useEffect(() => {
     const fetchLocations = async () => {
       setLoading(true);

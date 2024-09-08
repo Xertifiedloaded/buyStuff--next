@@ -8,7 +8,9 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const products = await Product.find().sort({ _id: -1 })
+        const products = await Product.find({}).sort({ _id: -1 })
+        console.log(products);
+        
         res.status(200).json(products)
       } catch (error) {
         res.status(500).json({ message: "Server error", error: error.message })
@@ -46,7 +48,7 @@ export default async function handler(req, res) {
           isFlashSale,
           isNewArrival,
         })
-console.log(product);
+        console.log(product)
 
         await product.save()
 
@@ -59,6 +61,7 @@ console.log(product);
 
     default:
       res.setHeader("Allow", ["GET", "POST"])
+      res.setHeader('Cache-Control', 'no-store');
       res.status(405).end(`Method ${method} Not Allowed`)
   }
 }

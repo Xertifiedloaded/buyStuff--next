@@ -1,6 +1,7 @@
 import React from "react"
 import Image from "next/image"
 import { Poppins } from "next/font/google"
+import { useApiContext } from "@/DashBoard/FetchContext"
 
 const poppin = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -11,11 +12,13 @@ export default function ProductData({
   productName,
   productDetails,
   productPrice,
+  productId
 }) {
+
   return (
     <>
       <div className={`${poppin.className}   rounded-sm shadow-sm text-b`}>
-        <div>
+        <div >
           <Image
             src={productImage}
             width={200}

@@ -31,7 +31,7 @@ export default async function handler(req, res) {
     }
 
 
-    // edit product
+
   } else if (req.method === "PATCH") {
     try {
       const updates = req.body; 

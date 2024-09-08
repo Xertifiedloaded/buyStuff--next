@@ -90,7 +90,7 @@ const ProductCategoryList: React.FC = () => {
                         </div>
                         <div className="flex items-center justify-between mt-4">
                           <p className="product-price text-sm font-bold">
-                            ₦{product.productPrice.toFixed(2)}
+                            ₦{product.productPrice}
                           </p>
                           <button
                             onClick={() => handleAddToCart(product)}

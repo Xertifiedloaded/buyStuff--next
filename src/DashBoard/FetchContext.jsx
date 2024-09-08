@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { addToCart } from "@/utils/cart-utils/CartUtils";
 
 export const Context = createContext({});
 export const ApiProvider = ({ children }) => {
@@ -49,7 +50,14 @@ export const ApiProvider = ({ children }) => {
       console.error("Product upload failed:", error);
     }
   };
-
+  const handleAddToCart = async (productId) => {
+    try {
+      await addToCart(productId, 1); 
+      alert('Product added to cart!');
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+    }
+  };
   const handleAddLocation = async (productData) => {
     try {
       await axios.post("/api/location/location", productData);
@@ -104,6 +112,7 @@ export const ApiProvider = ({ children }) => {
         handleDelete,
         handleDeleteProduct,
         fetchData,
+        handleAddToCart
       }}
     >
       {children}

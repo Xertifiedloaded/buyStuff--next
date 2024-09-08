@@ -8,13 +8,7 @@ export default function IconSection() {
         <div key={idx} className="text-center lg:text-sm text-xs">
           <div className="flex items-center justify-center">
             <div className="bg-white lg:h-[50px] lg:w-[50px] w-[40px] h-[40px] rounded-full flex justify-center items-center">
-              <Image
-                className="lg:w-9 w-5 h-5 invert object-cover lg:h-9"
-                src={item.icon}
-                width={200}
-                alt="icon"
-                height={200}
-              />
+              <p>{item.icon}</p>
             </div>
           </div>
           <h1 className="font-bold my-4 text-xs lg:text-xl">{item.heading}</h1>
