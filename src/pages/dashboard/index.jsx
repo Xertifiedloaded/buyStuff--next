@@ -84,7 +84,7 @@ export default function AdminDashboard({ user }) {
     return (
         <ProtectedPage>
 
-            <section className='w-[90%] mt-4 mx-auto'>
+            <section className='w-[90%] mt-4 py-[90px] mx-auto'>
                 <div className='flex w-full justify-between items-center'>
                     <h1 className='lg:text-5xl xs:text-2xl capitalize'>Welcome {user.name}!</h1>
                     <div className='border border-black w-[40px] lg:h-[50px] lg:w-[50px] h-[40px] rounded-full'>

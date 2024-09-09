@@ -27,7 +27,13 @@ export default function App({ Component, pageProps }) {
     "/auth/login",
     "/auth/create",
   ]
-  const hideBanner = ["/auth/login", "/auth/create", "/checkout", "/cart"]
+  const hideBanner = [
+    "/auth/login",
+    "/auth/create",
+    "/checkout",
+    "/cart",
+    "/dashboard",
+  ]
 
   return (
     <>
