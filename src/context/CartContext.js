@@ -11,9 +11,9 @@ export const CartProvider = ({ children }) => {
   const [selectedLocation, setSelectedLocation] = useState("")
   const [loading, setLoading] = useState(true)
   const [cartLength, setLength] = useState(null)
-  const [addToCartLoading, setAddToCartLoading] = useState(false);
+  const [addToCartLoading, setAddToCartLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [loadingProductIds, setLoadingProductIds] = useState(new Set());
+  const [loadingProductIds, setLoadingProductIds] = useState(new Set())
   const [payload, setPayload] = useState({
     name: "",
     email: "",
@@ -52,21 +52,20 @@ export const CartProvider = ({ children }) => {
       const response = await axios.post("/api/cart/cart", {
         productId,
         quantity: 1,
-      });
-      const productResponse = await fetch(`/api/cart/${productId}`);
+      })
+      const productResponse = await fetch(`/api/cart/${productId}`)
       if (!productResponse.ok) {
-        throw new Error("Failed to fetch product details");
+        throw new Error("Failed to fetch product details")
       }
-      fetchCart();
-      const product = await productResponse.json();
-      toast.success(`Added ${product.productName} to cart`);
+      fetchCart()
+      const product = await productResponse.json()
+      toast.success(`Added ${product.productName} to cart`)
     } catch (error) {
-      toast.error("Error adding to cart");
-      console.error("Error adding to cart:", error);
+      toast.error("Error adding to cart")
+      console.error("Error adding to cart:", error)
     } finally {
-
     }
-  };
+  }
 
   const fetchLocations = async () => {
     setLoading(true)
@@ -187,6 +186,13 @@ export const CartProvider = ({ children }) => {
         }),
       })
       clearCart()
+      setPayload({
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+      })
+
       if (!response.ok) {
         throw new Error("Failed to send order details")
       }
@@ -235,7 +241,6 @@ export const CartProvider = ({ children }) => {
         addToCart,
         cartLength,
         clearCart,
-        
       }}
     >
       {children}
