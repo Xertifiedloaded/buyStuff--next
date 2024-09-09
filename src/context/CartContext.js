@@ -1,8 +1,8 @@
 "use client"
 import React, { createContext, useContext, useEffect, useState } from "react"
 import axios from "axios"
-import { toast } from 'react-toastify';
-
+import { toast } from "react-toastify"
+const publicKey = "pk_test_8b18eabe74aaa47775d4f5bff93133d7d2fb078f"
 const CartContext = createContext()
 
 export const CartProvider = ({ children }) => {
@@ -11,15 +11,15 @@ export const CartProvider = ({ children }) => {
   const [selectedLocation, setSelectedLocation] = useState("")
   const [loading, setLoading] = useState(true)
   const [cartLength, setLength] = useState(null)
+  const [addToCartLoading, setAddToCartLoading] = useState(false);
   const [error, setError] = useState(null)
+  const [loadingProductIds, setLoadingProductIds] = useState(new Set());
   const [payload, setPayload] = useState({
     name: "",
     email: "",
     phone: "",
     address: "",
   })
-
-  const publicKey = "pk_test_8b18eabe74aaa47775d4f5bff93133d7d2fb078f"
 
   useEffect(() => {
     fetchCart()
@@ -28,28 +28,26 @@ export const CartProvider = ({ children }) => {
 
   const fetchCart = async () => {
     try {
-      setLoading(true);
-      const response = await fetch("/api/cart/cart");
+      setLoading(true)
+      const response = await fetch("/api/cart/cart")
       if (!response.ok) {
-        throw new Error("Failed to fetch cart");
+        throw new Error("Failed to fetch cart")
       }
-      const data = await response.json();
-      setCart(data);
+      const data = await response.json()
+      setCart(data)
       if (data.items.length > 0) {
-        setLength(data.items.length);
+        setLength(data.items.length)
       } else {
-        setLength(null); 
+        setLength(null)
       }
-  
-      setLoading(false);
+      setLoading(false)
     } catch (error) {
-      setError(error.message);
-      setLoading(false); 
+      setError(error.message)
+      setLoading(false)
     }
-  };
-  
+  }
 
-const addToCart = async (productId) => {
+  const addToCart = async (productId) => {
     try {
       const response = await axios.post("/api/cart/cart", {
         productId,
@@ -59,18 +57,16 @@ const addToCart = async (productId) => {
       if (!productResponse.ok) {
         throw new Error("Failed to fetch product details");
       }
-      const product = await productResponse.json();
       fetchCart();
+      const product = await productResponse.json();
       toast.success(`Added ${product.productName} to cart`);
     } catch (error) {
       toast.error("Error adding to cart");
       console.error("Error adding to cart:", error);
+    } finally {
+
     }
   };
-
-
-
-
 
   const fetchLocations = async () => {
     setLoading(true)
@@ -107,37 +103,32 @@ const addToCart = async (productId) => {
     }
   }
 
-
-
-const removeFromCart = async (productId) => {
+  const removeFromCart = async (productId) => {
     try {
-      const productResponse = await fetch(`/api/cart/${productId}`);
+      const productResponse = await fetch(`/api/cart/${productId}`)
       if (!productResponse.ok) {
-        throw new Error("Failed to fetch product details");
+        throw new Error("Failed to fetch product details")
       }
-      const product = await productResponse.json();
+      const product = await productResponse.json()
       const response = await fetch("/api/cart/cart", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ productId }),
-      });
-  
+      })
+
       if (!response.ok) {
-        throw new Error("Failed to remove item from cart");
+        throw new Error("Failed to remove item from cart")
       }
-      const updatedCart = await response.json();
-      setCart(updatedCart);
-      toast.success(`Removed ${product.productName} from cart`);
+      const updatedCart = await response.json()
+      setCart(updatedCart)
+      toast.success(`Removed ${product.productName} from cart`)
     } catch (error) {
-      toast.error("Error removing item from cart");
-      console.error("Error removing item from cart:", error);
+      toast.error("Error removing item from cart")
+      console.error("Error removing item from cart:", error)
     }
-  };
-  
-
-
+  }
 
   const clearCart = async () => {
     try {
@@ -243,7 +234,8 @@ const removeFromCart = async (productId) => {
         fetchCart,
         addToCart,
         cartLength,
-        clearCart
+        clearCart,
+        
       }}
     >
       {children}

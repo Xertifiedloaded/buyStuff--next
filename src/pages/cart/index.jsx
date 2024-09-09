@@ -14,16 +14,19 @@ const CartPage = () => {
 
   return (
     <div className="w-[95%] mt-20 mx-auto p-4">
-      <div className="flex justify-between mb-4">
-        <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
-        <ClearCartButton />
-      </div>
+      {cart.items.length > 0 && (
+        <div className="flex justify-between mb-4">
+          <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
+          <ClearCartButton />
+        </div>
+      )}
+
       {cart.items.length > 0 ? (
         <>
           {cart.items.map((item) => (
             <div
               key={item.productId._id}
-              className=" border border-gray-dark p-4 mb-4 rounded-lg shadow-md"
+              className=" border border-gray p-4 mb-4 rounded-lg shadow-md"
             >
               <h2 className="text-xl capitalize font-semibold">
                 {item.productId.productName}
@@ -70,9 +73,9 @@ const CartPage = () => {
           </div>
         </>
       ) : (
-        <p>
+        <div className="h-screen grid place-items-center">
           <EmptyCart />
-        </p>
+        </div>
       )}
     </div>
   )
