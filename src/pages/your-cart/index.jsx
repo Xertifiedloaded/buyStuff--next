@@ -1,56 +1,125 @@
+import { useState, useEffect } from 'react';
 
-import { deleteFromCart, getCart, updateCartQuantity } from '@/utils/cart-utils/CartUtils';
-import React, { useState, useEffect } from 'react';
+const CartPage = () => {
+  const [cart, setCart] = useState({ items: [], totalPrice: 0 });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-
-function YourCart() {
-  const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
-
+  // Fetch cart data from the backend
   useEffect(() => {
-    async function fetchCart() {
-      const { cart, total } = await getCart();
-      setCart(cart);
-      setTotal(total);
-    }
+    const fetchCart = async () => {
+      try {
+        const response = await fetch('/api/cart/cart');
+        if (!response.ok) {
+          throw new Error('Failed to fetch cart');
+        }
+        const data = await response.json();
+        setCart(data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
     fetchCart();
   }, []);
 
-  const handleQuantityChange = async (productId, quantity) => {
-    await updateCartQuantity(productId, quantity);
-    const { cart, total } = await getCart();
-    setCart(cart);
-    setTotal(total);
+  // Update cart item quantity
+  const updateCartItem = async (productId, quantity) => {
+    try {
+      const response = await fetch('/api/cart/cart', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId, quantity }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update cart item');
+      }
+      const updatedCart = await response.json();
+      setCart(updatedCart);
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
-  const handleDelete = async (productId) => {
-    await deleteFromCart(productId);
-    const { cart, total } = await getCart();
-    setCart(cart);
-    setTotal(total);
+  // Remove item from cart
+  const removeFromCart = async (productId) => {
+    try {
+      const response = await fetch('/api/cart/cart', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to remove item from cart');
+      }
+      const updatedCart = await response.json();
+      setCart(updatedCart);
+    } catch (error) {
+      setError(error.message);
+    }
   };
+
+  // Handle quantity change
+  const handleQuantityChange = (productId, change) => {
+    const item = cart.items.find((item) => item.productId._id === productId);
+    if (item) {
+      const newQuantity = Math.max(1, item.quantity + change);
+      updateCartItem(productId, newQuantity);
+    }
+  };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
-    <div>
-      <h1>Shopping Cart</h1>
-      {cart.length === 0 ? (
-        <p>Your cart is empty</p>
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
+      {cart.items.length > 0 ? (
+        cart.items.map((item) => (
+          <div key={item.productId._id} className="border p-4 mb-4 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold">{item.productId.productName}</h2>
+            <p className="text-lg">Price: ${item.productId.productPrice.toFixed(2)}</p>
+            <div className="flex items-center mt-2">
+              <button
+                onClick={() => handleQuantityChange(item.productId._id, -1)}
+                className="bg-blue-500 text-white p-2 rounded-l"
+              >
+                -
+              </button>
+              <input
+                type="number"
+                min="1"
+                value={item.quantity}
+                readOnly
+                className=" bg-transparent    p-2 text-center w-16"
+              />
+              <button
+                onClick={() => handleQuantityChange(item.productId._id, 1)}
+                className="bg-blue-500 text-white p-2 rounded-r"
+              >
+                +
+              </button>
+              <button
+                onClick={() => removeFromCart(item.productId._id)}
+                className="bg-red-500 text-white p-2 ml-4 rounded"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        ))
       ) : (
-        <ul>
-          {cart.map(item => (
-            <li key={item.productId}>
-              <span>Product ID: {item.productId}</span>
-              <button onClick={() => handleQuantityChange(item.productId, item.quantity + 1)}>+</button>
-              <span>Quantity: {item.quantity}</span>
-              <button onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}>-</button>
-              <button onClick={() => handleDelete(item.productId)}>Remove</button>
-            </li>
-          ))}
-        </ul>
+        <p>Your cart is empty.</p>
       )}
-      <div>Total: ${total.toFixed(2)}</div>
+      <h3 className="text-xl font-semibold mt-4">Total Price: ${cart.totalPrice.toFixed(2)}</h3>
     </div>
   );
-}
+};
 
-export default YourCart;
+export default CartPage;

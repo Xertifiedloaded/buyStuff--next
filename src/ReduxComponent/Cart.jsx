@@ -86,13 +86,13 @@ const Cart = () => {
                             {item.productName}
                           </span>
                           <p className="text-gray-700">
-                            ${item.productPrice.toFixed(2)}
+                            ${item.productPrice}
                           </p>
                         </div>
                         <div className="cart__price text-sm text-gray-500 flex justify-between items-center mb-2">
                           <span>{item.quantity} Qty</span>
                           <p>
-                            ${(item.productPrice * item.quantity).toFixed(2)}
+                            ${(item.productPrice * item.quantity)}
                           </p>
                         </div>
                         <div className="flex justify-between items-center mt-4">

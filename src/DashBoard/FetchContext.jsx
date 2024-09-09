@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { addToCart } from "@/utils/cart-utils/CartUtils";
+
 
 export const Context = createContext({});
 export const ApiProvider = ({ children }) => {

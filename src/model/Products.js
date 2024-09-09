@@ -1,11 +1,10 @@
-// models/Product.js
 import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 
 const ProductSchema = new mongoose.Schema({
   productId: {
     type: String,
-    default: uuidv4, 
+    default: uuidv4,
     unique: true,
     required: true,
   },
@@ -31,9 +30,9 @@ const ProductSchema = new mongoose.Schema({
   },
   isFlashSale: {
     type: Boolean,
-    default: false, 
+    default: false,
   },
-  isNewArrival: { 
+  isNewArrival: {
     type: Boolean,
     default: false,
   },
