@@ -8,12 +8,13 @@ import Shimmer from "./Shimmer"
 import ReuseableSectionGrid from "./ReuseableSectionGrid"
 import Image from "next/image"
 import { BiMinus } from "react-icons/bi"
+import { useCart } from "@/context/CartContext"
 
 const ProductCategoryList: React.FC = () => {
   const { product } = useApiContext()
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(true)
-
+  const { addToCart } = useCart()
   useEffect(() => {
     if (product && product.length > 0) {
       setIsLoading(false)
@@ -24,25 +25,6 @@ const ProductCategoryList: React.FC = () => {
 
   const styleName =
     "w-full bg-blue-500 text-black border border-black py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
-
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product))
-    toast.success(`${product.productName} added to cart!`, {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      style: {
-        width: "100%",
-        maxWidth: "100%",
-        margin: 0,
-        padding: "1rem",
-        borderRadius: 0,
-      },
-    })
-  }
 
   return (
     <>
@@ -88,12 +70,13 @@ const ProductCategoryList: React.FC = () => {
                             </p>
                           )}
                         </div>
+                        
                         <div className="flex items-center justify-between mt-4">
                           <p className="product-price text-sm font-bold">
                             ₦{product.productPrice}
                           </p>
                           <button
-                            onClick={() => handleAddToCart(product)}
+                            onClick={() => addToCart(product._id)}
                             className="bg-white text-black w-6 h-6 hover:bg-gray transition-all duration-500 ease-linear rounded-full flex items-center justify-center"
                           >
                             +
