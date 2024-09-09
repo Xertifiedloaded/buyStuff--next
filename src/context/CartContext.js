@@ -1,6 +1,8 @@
 "use client"
 import React, { createContext, useContext, useEffect, useState } from "react"
 import axios from "axios"
+import { toast } from 'react-toastify';
+
 const CartContext = createContext()
 
 export const CartProvider = ({ children }) => {
@@ -26,32 +28,49 @@ export const CartProvider = ({ children }) => {
 
   const fetchCart = async () => {
     try {
-      setLoading(true)
-      const response = await fetch("/api/cart/cart")
+      setLoading(true);
+      const response = await fetch("/api/cart/cart");
       if (!response.ok) {
-        throw new Error("Failed to fetch cart")
+        throw new Error("Failed to fetch cart");
       }
-      const data = await response.json()
-      setCart(data)
-      setLength(data.items.length)
-      setLoading(false)
+      const data = await response.json();
+      setCart(data);
+      if (data.items.length > 0) {
+        setLength(data.items.length);
+      } else {
+        setLength(null); 
+      }
+  
+      setLoading(false);
     } catch (error) {
-      setError(error.message)
+      setError(error.message);
+      setLoading(false); 
     }
-  }
+  };
+  
 
-  const addToCart = async (productId) => {
+const addToCart = async (productId) => {
     try {
       const response = await axios.post("/api/cart/cart", {
         productId,
         quantity: 1,
-      })
-      fetchCart()
-      console.log(response)
+      });
+      const productResponse = await fetch(`/api/cart/${productId}`);
+      if (!productResponse.ok) {
+        throw new Error("Failed to fetch product details");
+      }
+      const product = await productResponse.json();
+      fetchCart();
+      toast.success(`Added ${product.productName} to cart`);
     } catch (error) {
-      console.error("Error adding to cart:", error)
+      toast.error("Error adding to cart");
+      console.error("Error adding to cart:", error);
     }
-  }
+  };
+
+
+
+
 
   const fetchLocations = async () => {
     setLoading(true)
@@ -69,7 +88,6 @@ export const CartProvider = ({ children }) => {
     }
   }
 
-  // Update cart item quantity
   const updateCartItem = async (productId, quantity) => {
     try {
       const response = await fetch("/api/cart/cart", {
@@ -89,27 +107,51 @@ export const CartProvider = ({ children }) => {
     }
   }
 
-  // Remove item from cart
-  const removeFromCart = async (productId) => {
+
+
+const removeFromCart = async (productId) => {
     try {
+      const productResponse = await fetch(`/api/cart/${productId}`);
+      if (!productResponse.ok) {
+        throw new Error("Failed to fetch product details");
+      }
+      const product = await productResponse.json();
       const response = await fetch("/api/cart/cart", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ productId }),
-      })
+      });
+  
       if (!response.ok) {
-        throw new Error("Failed to remove item from cart")
+        throw new Error("Failed to remove item from cart");
       }
-      const updatedCart = await response.json()
-      setCart(updatedCart)
+      const updatedCart = await response.json();
+      setCart(updatedCart);
+      toast.success(`Removed ${product.productName} from cart`);
     } catch (error) {
-      setError(error.message)
+      toast.error("Error removing item from cart");
+      console.error("Error removing item from cart:", error);
+    }
+  };
+  
+
+
+
+  const clearCart = async () => {
+    try {
+      const response = await axios.post("/api/cart/clear-cart")
+      if (response.status === 200) {
+        toast.success("Cart cleared successfully")
+        fetchCart()
+      }
+    } catch (error) {
+      toast.error("Error clearing cart")
+      console.error("Error clearing cart:", error)
     }
   }
 
-  // Handle quantity change
   const handleQuantityChange = (productId, change) => {
     const item = cart.items.find((item) => item.productId._id === productId)
     if (item) {
@@ -118,25 +160,21 @@ export const CartProvider = ({ children }) => {
     }
   }
 
-  // Handle location change
   const handleLocationChange = (event) => {
     setSelectedLocation(event.target.value)
   }
 
-  // Handle user input change
   const handleInputChange = (event) => {
     const { name, value } = event.target
     setPayload((prev) => ({ ...prev, [name]: value }))
   }
 
-  // Calculate total price with selected location price
   const calculateTotalWithLocation = () => {
     const locationPrice =
       locations.find((loc) => loc.locationId === selectedLocation)?.price || 0
     return cart.totalPrice + locationPrice
   }
 
-  // Handle payment success
   const handleSuccess = async () => {
     try {
       const response = await fetch("/api/cart/sendorder", {
@@ -157,17 +195,16 @@ export const CartProvider = ({ children }) => {
           totalPrice: calculateTotalWithLocation(),
         }),
       })
-      console.log(response)
+      clearCart()
       if (!response.ok) {
         throw new Error("Failed to send order details")
       }
-      alert("Thanks for doing business with us! Come back soon!!")
+      toast.success("Thanks for doing business with us! Come back soon!!")
     } catch (error) {
-      alert("Failed to send order details. Please try again.")
+      toast.error("Failed to send order details. Please try again.")
     }
   }
 
-  // Payment component properties
   const componentProps = {
     email: payload.email,
     amount: calculateTotalWithLocation() * 100,
@@ -184,7 +221,7 @@ export const CartProvider = ({ children }) => {
     publicKey,
     text: "Pay Now",
     onSuccess: handleSuccess,
-    onClose: () => alert("Wait! Don't leave "),
+    onClose: () => toast.info("Wait! Don't leave "),
   }
 
   return (
@@ -206,6 +243,7 @@ export const CartProvider = ({ children }) => {
         fetchCart,
         addToCart,
         cartLength,
+        clearCart
       }}
     >
       {children}

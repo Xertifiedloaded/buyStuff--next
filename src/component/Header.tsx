@@ -39,7 +39,7 @@ const Header: React.FC = () => {
           </h1>
           <div className=" lg:hidden flex items-center gap-4 justify-end">
             <div className=" relative">
-              <Link href='/cart'>
+              <Link href="/cart">
                 <CiShoppingCart className="font-700" fontSize="30px" />
               </Link>
               <small className="absolute  text-white font-700 left-[35%] top-[20%] ">
