@@ -12,7 +12,9 @@
     @apply w-full h-96 bg-gray-dark;
     clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
   }
-
+input,select,textArea{
+  background: transparent;
+}
   .curved-bg {
     @apply w-full h-96 bg-orange-500;
     clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);

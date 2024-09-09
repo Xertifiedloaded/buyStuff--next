@@ -1,5 +1,5 @@
 "use client"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { FaMouse } from "react-icons/fa"
 import Logo from "../assets/hamburger.svg"
 import { useDispatch, useSelector } from "react-redux"
@@ -13,29 +13,19 @@ import { closeSidebar, openSidebar } from "@/ReduxComponent/ReduxStore"
 import GridCategory from "./GridCategory"
 import HeroSection from "./Hero"
 import Cart from "@/ReduxComponent/Cart"
-
+import { useCart } from "@/context/CartContext"
 
 const Header: React.FC = () => {
-  const dispatch = useDispatch()
-  const isSidebarOpen = useSelector((state) => state.sidebar.isOpen)
-  const cart = useSelector((state) => state.cart.cart)
-  const toggleSidebar = () => {
-    if (isSidebarOpen) {
-      dispatch(closeSidebar())
-    } else {
-      dispatch(openSidebar())
-    }
-  }
+  const { cart, cartLength } = useCart()
   interface NavProps {
     path?: string
     title: string
-    onClick?: () => void
   }
 
   const NAV: NavProps[] = [
     { path: "/", title: "Home" },
-    { title: "Cart", onClick: toggleSidebar },
-    { path: "/about", title: "Checkout" },
+    { title: "Cart", path: "/cart" },
+    { path: "/checkout", title: "Checkout" },
   ]
 
   return (
@@ -48,10 +38,12 @@ const Header: React.FC = () => {
             </Link>
           </h1>
           <div className=" lg:hidden flex items-center gap-4 justify-end">
-            <div className=" relative" onClick={toggleSidebar}>
-              <CiShoppingCart className="font-700" fontSize="30px" />
+            <div className=" relative">
+              <Link href='/cart'>
+                <CiShoppingCart className="font-700" fontSize="30px" />
+              </Link>
               <small className="absolute  text-white font-700 left-[35%] top-[20%] ">
-                {cart.length === 0 ? null : cart.length}
+                {cartLength}
               </small>
             </div>
             <Image
@@ -76,8 +68,13 @@ const Header: React.FC = () => {
                   (cart.length === 0 ? null : (
                     <span className="">
                       <div className="flex items-center">
-                        <CiShoppingCart className="font-700" fontSize="20px" />
-                        <p className="text-[10px]">{cart.length}</p>
+                        <Link href="/cart">
+                          <CiShoppingCart
+                            className="font-700"
+                            fontSize="20px"
+                          />
+                        </Link>
+                        <p className="text-[10px]">{cartLength}</p>
                       </div>
                     </span>
                   ))}
@@ -85,8 +82,6 @@ const Header: React.FC = () => {
             ))}
           </ul>
         </nav>
-        {/* open cart */}
-        {isSidebarOpen && <Cart />}
       </header>
     </>
   )

@@ -19,24 +19,6 @@ export default function OurProduct() {
     }
   }, [product])
 
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product))
-    toast.success(`${product.productName} added to cart!`, {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      style: {
-        width: "100%",
-        maxWidth: "100%",
-        margin: 0,
-        padding: "1rem",
-        borderRadius: 0,
-      },
-    })
-  }
 
   const handleViewAllProducts = () => {
     router.push('/products')
@@ -51,7 +33,6 @@ export default function OurProduct() {
           {product.slice(0, 8).map((product) => (
             <Card
               key={product.productId}
-              handleAddToCart={handleAddToCart}
               product={product}
             />
           ))}

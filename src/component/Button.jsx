@@ -1,8 +1,9 @@
 import React from "react"
 import Image from "next/image"
 import { FaPlus } from "react-icons/fa"
-import { useApiContext } from "@/DashBoard/FetchContext"
+
 import axios from "axios"
+import { useCart } from "@/context/CartContext"
 
 export default function Button({ text, styles, type, onclick }) {
   return (
@@ -14,22 +15,22 @@ export default function Button({ text, styles, type, onclick }) {
   )
 }
 
-const addToCart = async (productId) => {
-  try {
-    const response = await axios.post("/api/cart/cart", {
-      productId,
-      quantity: 1,
-    })
-    // const response = await axios.get('/api/cart/cart');
-    console.log(response)
+// const addToCart = async (productId) => {
+//   try {
+//     const response = await axios.post("/api/cart/cart", {
+//       productId,
+//       quantity: 1,
+//     })
+//     console.log(response)
 
  
-  } catch (error) {
-    console.error("Error adding to cart:", error)
-  }
-}
+//   } catch (error) {
+//     console.error("Error adding to cart:", error)
+//   }
+// }
 
 export function Card({ product, handleAddToCart }) {
+  const {addToCart}=useCart()
   return (
     <div className="shadow-md p-2 mt-4">
       <div className="w-full bg-gray  overflow-hidden rounded-sm mb-4 lg:mb-0">
