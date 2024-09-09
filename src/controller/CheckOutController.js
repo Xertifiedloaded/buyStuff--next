@@ -55,7 +55,6 @@ export const createOrder = async (req, res) => {
 
 
     const customerMailOptions = {
-      from: 'horllypizzy@gmail.com',
       to: email,
       subject: "Thank You for Your Order",
       html: CustomerThankYouTemplate({
