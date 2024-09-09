@@ -26,13 +26,15 @@ export const CartProvider = ({ children }) => {
 
   const fetchCart = async () => {
     try {
+      setLoading(true)
       const response = await fetch("/api/cart/cart")
       if (!response.ok) {
         throw new Error("Failed to fetch cart")
       }
       const data = await response.json()
       setCart(data)
-    setLength(data.items.length)
+      setLength(data.items.length)
+      setLoading(false)
     } catch (error) {
       setError(error.message)
     }
@@ -52,6 +54,7 @@ export const CartProvider = ({ children }) => {
   }
 
   const fetchLocations = async () => {
+    setLoading(true)
     try {
       const response = await fetch("/api/location/location")
       if (!response.ok) {
@@ -202,7 +205,7 @@ export const CartProvider = ({ children }) => {
         componentProps,
         fetchCart,
         addToCart,
-        cartLength
+        cartLength,
       }}
     >
       {children}
