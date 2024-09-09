@@ -1,4 +1,10 @@
-export function ConfirmationTemplate({ name, email, phone, address, products, totalPrice }) {
+export function ConfirmationTemplate({ name, email, phone, address, products = [], totalPrice }) {
+  // Ensure products is an array
+  if (!Array.isArray(products)) {
+    console.error('Error: products should be an array', products); // Improved error logging
+    return `<p>There was an error processing your order details.</p>`;
+  }
+
   const productsHtml = products.map(product => `
     <tr>
       <td style="padding: 12px; border: 1px solid #ddd; text-align: left;">${product.productName}</td>
@@ -10,8 +16,7 @@ export function ConfirmationTemplate({ name, email, phone, address, products, to
 
   return `
     <div style="font-family: Arial, sans-serif; max-width: 650px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #ffffff;">
-      <h1 style="font-size: 26px; font-weight: bold; color: #333; text-align: center; margin-bottom: 20px;">New Customer Order</h1>
-      
+      <h1 style="font-size: 26px; font-weight: bold; color: #333; text-align: center; margin-bottom: 20px;">New Order Received</h1>
       <p style="font-size: 16px; color: #555; margin-bottom: 10px;"><strong>Customer Name:</strong> ${name}</p>
       <p style="font-size: 16px; color: #555; margin-bottom: 10px;"><strong>Email:</strong> ${email}</p>
       <p style="font-size: 16px; color: #555; margin-bottom: 10px;"><strong>Phone:</strong> ${phone}</p>
@@ -36,8 +41,6 @@ export function ConfirmationTemplate({ name, email, phone, address, products, to
           </tr>
         </tfoot>
       </table>
-
-      <p style="font-size: 16px; color: #555; text-align: center; margin-top: 20px;">Please process this order accordingly. Thank you!</p>
     </div>
   `;
 }

@@ -1,4 +1,11 @@
-export function CustomerThankYouTemplate({ name, products, address }) {
+export function CustomerThankYouTemplate({ name, products = [], address }) {
+  // Ensure products is an array and not empty
+  if (!Array.isArray(products) || products.length === 0) {
+    console.error('Error: products should be a non-empty array', products);
+    return `<p>There was an error processing your order details.</p>`;
+  }
+
+  // Generate HTML for each product
   const productsHtml = products.map(product => `
     <tr>
       <td style="padding: 12px; border: 1px solid #ddd; text-align: left;">${product.productName}</td>
@@ -8,8 +15,12 @@ export function CustomerThankYouTemplate({ name, products, address }) {
     </tr>
   `).join('');
 
-  const totalPrice = products.reduce((total, product) => total + (product.productPrice * product.quantity), 0).toFixed(2);
+  // Calculate total price
+  const totalPrice = products
+    .reduce((total, product) => total + (product.productPrice * product.quantity), 0)
+    .toFixed(2);
 
+  // Generate the email template
   return `
     <div style="font-family: Arial, sans-serif; max-width: 650px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #ffffff;">
       <h1 style="font-size: 26px; font-weight: bold; color: #333; text-align: center; margin-bottom: 20px;">Thank You for Your Order!</h1>

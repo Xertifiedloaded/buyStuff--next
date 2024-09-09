@@ -27,18 +27,23 @@ export const ApiProvider = ({ children }) => {
 
   const fetchData = async () => {
     try {
-      const [productsResponse, locationResponse, ordersResponse] = await Promise.all([
-        axios.get("/api/products/product"),
-        axios.get("/api/location/location"),
-        axios.get("/api/auth/checkout"),
-      ]);
+      // Fetch products
+      const productsResponse = await axios.get("/api/products/product");
       setProducts(productsResponse.data);
+  
+      // Fetch locations
+      const locationResponse = await axios.get("/api/location/location");
       setLocation(locationResponse.data);
+  
+      // Fetch orders
+      const ordersResponse = await axios.get("/api/auth/checkout");
       setOrders(ordersResponse.data);
+  
     } catch (error) {
       console.error("Failed to fetch data", error);
     }
   };
+  
 
   const handleAddProduct = async (productData) => {
     try {

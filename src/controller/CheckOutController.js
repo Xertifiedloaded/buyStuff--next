@@ -26,6 +26,14 @@ export const createOrder = async (req, res) => {
       cartItems,
       totalPrice,
     });
+    console.log('Order details for admin:', {
+      name,
+      email,
+      phone,
+      address,
+      products: cartItems,
+      totalPrice,
+    });
 
     await newOrder.save();
     await Cart.findOneAndUpdate({}, { $set: { items: [], totalPrice: 0 } });
