@@ -3,14 +3,14 @@ import Cart from '@/model/Cart';
 import Product from '@/model/Products';
 import mongoose from 'mongoose';
 
-//  function to calculate the total price of the cart 
+// total
 const calculateTotalPrice = (cartItems) => {
   return cartItems.reduce((total, item) => {
     return total + item.productId.productPrice * item.quantity;
   }, 0);
 };
 
-// Fetch the cart
+// all cart
 export const getCart = async (req, res) => {
   try {
     const cart = await Cart.findOne().populate('items.productId');
@@ -26,7 +26,7 @@ export const getCart = async (req, res) => {
   }
 };
 
-// Add a product to the cart
+// AddToCart
 export const addToCart = async (req, res) => {
   const { productId, quantity } = req.body;
 
@@ -50,15 +50,12 @@ export const addToCart = async (req, res) => {
     );
 
     if (existingProductIndex >= 0) {
-      // Product exists in the cart, update quantity
       cart.items[existingProductIndex].quantity += quantity;
     } else {
-      // Product doesn't exist in the cart, add new item
       cart.items.push({ productId, quantity });
     }
-
-    await cart.populate('items.productId'); // Correct way to populate after adding/updating
-
+// Correct way to populate after adding/updating
+    await cart.populate('items.productId'); 
     cart.totalPrice = calculateTotalPrice(cart.items);
     await cart.save();
     res.status(201).json(cart);
@@ -67,7 +64,7 @@ export const addToCart = async (req, res) => {
   }
 };
 
-// Update the quantity of a product in the cart
+// update Quantity
 export const updateCartItem = async (req, res) => {
   const { productId, quantity } = req.body;
 
@@ -99,7 +96,7 @@ export const updateCartItem = async (req, res) => {
   }
 };
 
-// Remove a product from the cart
+// Remove from cart
 export const removeFromCart = async (req, res) => {
   const { productId } = req.body;
 
@@ -122,3 +119,5 @@ export const removeFromCart = async (req, res) => {
     res.status(500).json({ message: 'Error removing from cart', error });
   }
 };
+
+
