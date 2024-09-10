@@ -11,6 +11,7 @@ import Header from "@/component/Header"
 import Footer from "@/component/Footer"
 import Banner from "@/component/HeroSection"
 import { CartProvider } from "@/context/CartContext"
+import Layout from "@/component/Layout"
 
 const manrope = Manrope({
   weight: ["200", "300", "400", "600", "700", "800"],
@@ -43,10 +44,9 @@ export default function App({ Component, pageProps }) {
             <ApiProvider>
               <Provider store={store}>
                 <ToastContainer />
-                {!hideHeaderFooter.includes(pathname) && <Header />}
-                {!hideBanner.includes(pathname) && <Banner />}
-                <Component {...pageProps} />
-                {!hideHeaderFooter.includes(pathname) && <Footer />}
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
               </Provider>
             </ApiProvider>
           </AuthProvider>

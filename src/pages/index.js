@@ -1,16 +1,8 @@
 import dynamic from "next/dynamic"
 import Head from "next/head"
 import React from "react"
-import Banner from "@/component/HeroSection"
-import Swipe from "@/component/Swipe"
-import Category from "@/component/Category"
-import Header from "@/component/Header"
-import OurProduct from "@/component/Our-Product"
-import Footer from "@/component/Footer"
-import IconSection from "@/component/IconSection"
-import FlashSaleProducts from "@/component/FlashSalesProduct"
-import FlashSaleCountdown from "@/component/CountDown"
-import NewArrival from "@/NewArrival"
+
+import LandingPage from "./LandingPage"
 
 export default function Home() {
   return (
@@ -22,13 +14,7 @@ export default function Home() {
         <link rel="icon" href="/" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
       </Head>
-      <main>
-        <FlashSaleCountdown />
-        <NewArrival />
-        <Category />
-        <OurProduct />
-        <IconSection />
-      </main>
+      <LandingPage />
     </>
   )
 }
