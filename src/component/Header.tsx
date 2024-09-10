@@ -14,24 +14,22 @@ import GridCategory from "./GridCategory"
 import HeroSection from "./Hero"
 import Cart from "@/ReduxComponent/Cart"
 import { useCart } from "@/context/CartContext"
+import Nav from "./Nav"
+import { NAV } from "@/utils/Utilities"
 
 const Header: React.FC = () => {
   const { cart, cartLength } = useCart()
-  interface NavProps {
-    path?: string
-    title: string
+  const [toggle, setToggle] = useState(false)
+  const handleToggle = () => {
+    setToggle((toggle) => !toggle)
+    console.log("hehehehhe")
   }
 
-  const NAV: NavProps[] = [
-    { path: "/", title: "Home" },
-    { title: "Cart", path: "/cart" },
-    { path: "/checkout", title: "Checkout" },
-  ]
 
   return (
     <>
       <header className="">
-        <nav className=" fixed flex bg-black text-white items-center justify-between z-40 lg:px-10 px-4 py-5 top-0 left-0 w-full right-0   mx-auto">
+        <nav className=" fixed flex  text-white items-center justify-between z-40 lg:px-10 px-4 py-5 top-0 left-0 w-full right-0   mx-auto">
           <h1 className="logo font-700 text-2xl lg:text-2xl">
             <Link href="/">
               Buy<span className="text-red-600">Stuff</span>
@@ -48,12 +46,14 @@ const Header: React.FC = () => {
             </div>
             <Image
               src={Logo}
+              onClick={handleToggle}
               className="invert block object-cover lg:invert-0 lg:hidden"
               alt="none"
               width={20}
               height={20}
               objectFit="cover"
             />
+            {toggle ? <Nav handleToggle={handleToggle} /> : null}
           </div>
 
           <ul className="lg:flex hidden justify-end gap-4  items-center">

@@ -3,11 +3,9 @@ import React, { useEffect, useState } from "react"
 import Countdown from "react-countdown"
 import Swipe from "./Swipe"
 import Timer from "./Timer"
-import Button from "./Button"
 
 const FlashSaleCountdown = () => {
   const [saleEndDate, setSaleEndDate] = useState(null);
-
   useEffect(() => {
     setSaleEndDate(new Date("2024-09-30T23:59:59"));
   }, []);

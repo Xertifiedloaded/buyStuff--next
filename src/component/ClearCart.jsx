@@ -1,13 +1,15 @@
 import { useCart } from "@/context/CartContext"
+import { MdCleaningServices } from "react-icons/md"
 
 export const ClearCartButton = () => {
   const { clearCart } = useCart()
   return (
     <button
       onClick={clearCart}
-      className="bg-red-500 text-white px-2 font-600 text-xs rounded"
+      className=""
     >
       Clear Cart
+
     </button>
   )
 }

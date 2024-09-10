@@ -11,6 +11,19 @@ interface ProductProps {
 }
 
 
+interface NavProps {
+  path?: string
+  title: string
+}
+
+export const NAV: NavProps[] = [
+  { path: "/", title: "Home" },
+  { title: "Cart", path: "/cart" },
+  { path: "/checkout", title: "Checkout" },
+]
+
+
+
 export const categories: string[] = [
   'Panties',
   'Brallets',

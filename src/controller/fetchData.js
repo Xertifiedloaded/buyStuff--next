@@ -3,7 +3,7 @@ const localUrl = 'http://localhost:3000';
 
 export const fetchData = async () => {
   try {
-    const response = await fetch(`${localUrl}/api/products/product`);
+    const response = await fetch(`/api/products/product`);
     
     if (!response.ok) {
       throw new Error(`Error: ${response.statusText}`);

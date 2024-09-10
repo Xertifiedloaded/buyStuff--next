@@ -29,12 +29,15 @@ const CheckoutPage = () => {
   return (
     <>
       {cart.items.length > 0 ? (
-        <div className="flex mt-[100px]  flex-col lg:flex-row mx-auto gap-4 p-4">
-          <div className="bg-black  flex-1 text-white p-6 rounded-lg shadow-lg">
+        <div className="flex mt-[100px]   flex-col lg:flex-row mx-auto gap-4 p-4">
+          <div className=" flex-1 overflow-y-auto overflow-x-hidden text-white p-6 rounded-lg shadow-lg">
             <h1 className="text-3xl font-bold mb-6">Checkout</h1>
             <h2 className="text-2xl font-semibold mb-4">Your Cart</h2>
             {cart.items.map((item) => (
-              <div key={item.productId._id} className="border-b py-4">
+              <div
+                key={item.productId._id}
+                className="border-b border-gray-dark py-4"
+              >
                 <h3 className="text-lg capitalize font-semibold">
                   {item.productId.productName}
                 </h3>
@@ -54,7 +57,7 @@ const CheckoutPage = () => {
               <h1 className="text-3xl font-bold mb-6">Delivery Details</h1>
               <label
                 htmlFor="location"
-                className="block text-lg font-medium mb-2"
+                className="block text-sm font-medium mb-2"
               >
                 Select Location
               </label>
@@ -62,7 +65,7 @@ const CheckoutPage = () => {
                 id="location"
                 value={selectedLocation}
                 onChange={handleLocationChange}
-                className="block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="block w-full p-3 border border-gray-dark shadow-lg rounded-lg outline-none "
               >
                 <option value="">Select a location</option>
                 {locations.map((loc) => (
@@ -74,7 +77,7 @@ const CheckoutPage = () => {
             </div>
 
             <div className="mb-6">
-              <label htmlFor="name" className="block text-lg font-medium mb-2">
+              <label htmlFor="name" className="block text-sm font-medium mb-2">
                 Name
               </label>
               <input
@@ -83,13 +86,13 @@ const CheckoutPage = () => {
                 name="name"
                 value={payload.name}
                 onChange={handleInputChange}
-                className="block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="block w-full p-3  border border-gray-dark shadow-lg rounded-lg "
                 required
               />
             </div>
 
             <div className="mb-6">
-              <label htmlFor="email" className="block text-lg font-medium mb-2">
+              <label htmlFor="email" className="block text-sm font-medium mb-2">
                 Email
               </label>
               <input
@@ -98,13 +101,13 @@ const CheckoutPage = () => {
                 name="email"
                 value={payload.email}
                 onChange={handleInputChange}
-                className="block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="block w-full p-3  rounded-lg border border-gray-dark shadow-lg"
                 required
               />
             </div>
 
             <div className="mb-6">
-              <label htmlFor="phone" className="block text-lg font-medium mb-2">
+              <label htmlFor="phone" className="block text-sm font-medium mb-2">
                 Phone
               </label>
               <input
@@ -113,7 +116,7 @@ const CheckoutPage = () => {
                 name="phone"
                 value={payload.phone}
                 onChange={handleInputChange}
-                className="block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="block w-full p-3  border border-gray-dark shadow-lg rounded-lg "
                 required
               />
             </div>
@@ -121,7 +124,7 @@ const CheckoutPage = () => {
             <div className="mb-6">
               <label
                 htmlFor="address"
-                className="block text-lg font-medium mb-2"
+                className="block text-sm font-medium mb-2"
               >
                 Address
               </label>
@@ -130,7 +133,7 @@ const CheckoutPage = () => {
                 name="address"
                 value={payload.address}
                 onChange={handleInputChange}
-                className="block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="block w-full p-3  border border-gray-dark shadow-lg rounded-lg "
                 rows="4"
                 required
               />

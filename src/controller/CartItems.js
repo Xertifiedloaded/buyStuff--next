@@ -14,6 +14,7 @@ const calculateTotalPrice = (cartItems) => {
 export const getCart = async (req, res) => {
   try {
     const cart = await Cart.findOne().populate('items.productId');
+console.log(cart);
 
     if (cart) {
       cart.totalPrice = calculateTotalPrice(cart.items);

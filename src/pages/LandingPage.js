@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Suspense } from "react"
 
 import Category from "@/component/Category"
 
@@ -8,16 +8,18 @@ import IconSection from "@/component/IconSection"
 
 import FlashSaleCountdown from "@/component/CountDown"
 import NewArrival from "@/NewArrival"
+import Loading from "@/component/Loading"
 
 export default function LandingPage() {
-    
   return (
     <main>
-      <FlashSaleCountdown />
-      <NewArrival />
-      <Category />
-      <OurProduct />
-      <IconSection />
+      <Suspense fallback={<Loading />}>
+        <FlashSaleCountdown />
+        <NewArrival />
+        <Category />
+        <OurProduct />
+        <IconSection />
+      </Suspense>
     </main>
   )
 }
